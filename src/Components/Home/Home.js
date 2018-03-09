@@ -4,7 +4,9 @@ import React, { Component } from 'react'
 export default class Home extends Component {
     render () {
         return (
-            <div>Welcome to Geekhub feedback system</div>
+            <div>
+                <h1>Home</h1>
+                Welcome to Geekhub feedback system!</div>
         )
     }
 }

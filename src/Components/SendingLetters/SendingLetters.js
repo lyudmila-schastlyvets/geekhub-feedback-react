@@ -7,7 +7,9 @@ class SendingLetters extends Component {
     }
     render () {
         return (
-            <div>Sending Letters</div>
+            <div>
+                <h1>Sending Letters</h1>
+            </div>
         )
     }
 }
