@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import './App.css'
 import { Route, Link, Switch } from 'react-router-dom'
 
-import Home from './Components/Home/Home'
-import Feedback from './Components/Feedback/Feedback'
-import Teachers from './Components/Teachers/Teachers'
-import SendingLetters from './Components/SendingLetters/SendingLetters'
+import Home from './components/Home/Home'
+import Feedback from './components/Feedback/Feedback'
+import Teachers from './components/Teachers/Teachers'
+import SendingLetters from './components/SendingLetters/SendingLetters'
 
 class App extends Component {
   render() {
