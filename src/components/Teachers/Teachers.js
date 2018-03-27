@@ -1,34 +1,69 @@
 import React, {Component} from 'react'
-import {Route, Link} from 'react-router-dom'
-import {withRouter} from 'react-router-dom'
+import {Route, Link, withRouter} from 'react-router-dom'
+import update from 'immutability-helper'
+
+const CHECK_EMPTY = / /g
 
 class Teachers extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
-            course: ''
+            teacher: {
+                name: '',
+                course: '',
+                img: ''
+            },
+            errors: {
+                required: ''
+            }
         }
 
-        this.nameChange = this.nameChange.bind(this)
-        this.courseChange = this.courseChange.bind(this)
+        this.teacherChange = this.teacherChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    nameChange(event) {
-        this.setState({name: event.target.name})
+    componentDidMount () {
+        console.log('props in component', this.props)
     }
 
-    courseChange(event) {
-        this.setState({course: event.target.course})
+    teacherChange({target: {value, name, className}}) {
+        this.setState({
+            teacher: update(this.state.teacher, {
+                [name]: {$set: value}
+            })
+        })
+        if (className === 'required' && !value.replace(CHECK_EMPTY, '')) {
+            this.setState({
+                errors: update(this.state.errors, {
+                    requiredError: {$set: 'Fill in required fields'}
+                })
+            })
+        } else if (className === 'required') {
+            this.setState({
+                errors: update(this.state.errors, {
+                    requiredError: {$set: ''}
+                })
+            })
+        }
     }
 
     handleSubmit(event) {
         event.preventDefault()
         this.setState({
-            name: this.state.name,
-            course: this.state.course
+            teacher: {
+                name: this.state.name,
+                course: this.state.course,
+                img: this.state.img
+            },
         })
+        if (!this.state.teacher.name.replace(CHECK_EMPTY, '')) {
+            this.state.errors.required = 'Name is required'
+        } else {
+            this.state.errors.required = ''
+        }
+
+        this.props.changeStateProps('teacher', this.state.teacher)
+        this.props.changeStateProps('errors', this.state.errors)
     }
 
     render() {
@@ -42,14 +77,15 @@ class Teachers extends Component {
                             <div>Teacher form
                                 <form>
                                     <input
-                                        className='required'
                                         name='name'
+                                        className = 'required'
                                         type='text'
                                         placeholder='Name'
-                                        onChange={this.nameChange}
+                                        onChange={this.teacherChange}
+                                        value={this.state.name}
                                     /><br/>
                                     <select value={this.state.course}
-                                            onChange={this.courseChange}>
+                                            onChange={this.teacherChange}>
                                         <option value="FrontendCMS">Frontend + CMS</option>
                                         <option value="FrontendJS">Frontend + JS</option>
                                         <option value="OnlineMarketing">Online Marketing</option>

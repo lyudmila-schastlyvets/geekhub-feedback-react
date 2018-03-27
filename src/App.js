@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+   import React, { Component } from 'react'
 import './App.css'
 import { Route, Link, Switch } from 'react-router-dom'
 
-import Home from './Components/Home/Home'
-import Feedback from './Components/Feedback/Feedback'
-import Teachers from './Components/Teachers/Teachers'
-import SendingLetters from './Components/SendingLetters/SendingLetters'
+import Home from './components/Home/Home'
+import Feedback from './components/Feedback/Feedback'
+import Teachers from './components/Teachers/TeachersContainer'
+import SendingLetters from './components/SendingLetters/SendingLetters'
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
           <nav>
               <Link to='/feedback'>Feedback</Link>
               <Link to='/teachers'>Teachers</Link>
-              <Link to='/sending_letters'>SendingLetters</Link>
+              <Link to='/sending_letters'>Sending Letters</Link>
           </nav>
           <div className='routes'>
               <Switch>
@@ -32,4 +32,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
