@@ -16,17 +16,17 @@ class App extends Component {
           <h1 className="App-title">Geekhub charity project</h1>
         </header>
           <nav>
-              <Link to='/feedback'>Feedback</Link>
-              <Link to='/teachers'>Teachers</Link>
-              <Link to='/sending_letters'>Sending letters</Link>
+              <Link to='/admin/feedback'>Feedback</Link>
+              <Link to='/admin/teachers'>Teachers</Link>
+              <Link to='/admin/sending_letters'>Sending letters</Link>
           </nav>
           <div className='routes'>
               <Switch>
-                  <Route exact path='/' component={Home} />
-                  <Route path='/feedback' component={Feedback} />
-                  <Route path='/teachers' component={Teachers} />
-                  <Route path='/add_teacher' component={addTeacher} />
-                  <Route path='/sending_letters' component={SendingLetters} />
+                  <Route exact path='/admin' component={Home} />
+                  <Route path='/admin/feedback' component={Feedback} />
+                  <Route path='/admin/teachers' component={Teachers} />
+                  <Route path='/admin/add_teacher' component={addTeacher} />
+                  <Route path='/admin/sending_letters' component={SendingLetters} />
               </Switch>
           </div>
       </div>

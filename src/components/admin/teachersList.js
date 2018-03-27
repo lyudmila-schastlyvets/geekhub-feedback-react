@@ -8,7 +8,7 @@ class Teachers extends Component {
         return (
             <div>
                 <h1>Teachers</h1>
-                <Link to='/add_teacher'>Add teacher</Link>
+                <Link to='/admin/add_teacher'>Add teacher</Link>
             </div>
         )
     }
