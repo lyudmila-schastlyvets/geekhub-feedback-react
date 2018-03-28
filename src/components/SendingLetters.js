@@ -15,7 +15,6 @@ class Login extends Component {
       errorMessage: ''
     }
 
-
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
@@ -84,7 +83,8 @@ class Login extends Component {
   }
 
   handleSelectChange(e) {
-    this.state.chosenTeachers.push(e.target.value)
+    if ( this.state.chosenTeachers.indexOf(e.target.value) === -1)
+      this.state.chosenTeachers.push(e.target.value)
   }
 
   handleTextareaChange(e) {

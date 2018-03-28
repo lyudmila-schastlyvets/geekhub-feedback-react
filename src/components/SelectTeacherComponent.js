@@ -37,17 +37,18 @@ class SelectTeachersComponent extends Component {
 
   render() {
     return (
-      <div>
-        <button
+      <div>{
+        this.state.count < 3 && <button
           className="mg-bottom btn btn-primary"
           onClick={this.addSelectFunction}>Add teacher</button>
-          {this.state.selects.map(function (el, index) {
-            return (
-              <div className="single-form-row row justify-content-md-center" key={index}>
-                {el}
-              </div>
-            )
-          })}
+      }
+        {this.state.selects.map(function (el, index) {
+          return (
+            <div className="single-form-row row justify-content-md-center" key={index}>
+              {el}
+            </div>
+          )
+        })}
       </div>
 
     )
