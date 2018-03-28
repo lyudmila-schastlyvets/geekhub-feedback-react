@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import SelectTeacherComponent from './SelectTeacherComponent'
+import { EMAIL_VALIDATION_REGEX } from './../constants'
 
 class Login extends Component {
   constructor(props) {
@@ -10,8 +11,10 @@ class Login extends Component {
       loggedIn: localStorage.getItem('loggedIn'),
       teachers: [],
       chosenTeachers: [],
-      emails: 'Choose teacher'
+      emails: '',
+      errorMessage: ''
     }
+
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSelectChange = this.handleSelectChange.bind(this)
@@ -35,17 +38,38 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault()
     let localThis = this;
-    let str = this.state.emails.split(', ');
-    str.forEach(function (el) {
-      console.log({
-        "email": el.toString(),
-        "teachers": localThis.state.chosenTeachers
-      })
-      // axios.post('url', {
-      //   "email": el.toString(),
-      //   "teachers": this.state.teachers
-      // })
+    this.setState({
+      errorMessage: ''
     })
+    if (this.state.emails === '') {
+      localThis.setState({
+        errorMessage: 'Email address is required'
+      })
+      return
+    }
+    let str = this.state.emails.split(', ');
+
+    str.forEach(function (el) {
+      if (localThis.state.errorMessage) {
+        return
+      } else {
+        if (!EMAIL_VALIDATION_REGEX.test(el)) {
+          localThis.setState({
+            errorMessage: 'Enter correct email(s)'
+          })
+          return
+        } else {
+          console.log({
+            "email": el.toString(),
+            "teachers": localThis.state.chosenTeachers
+          })
+        }
+      }
+    })
+    // axios.post('url', {
+    //   "email": el.toString(),
+    //   "teachers": this.state.teachers
+    // })
     // axios.post('https://rocky-sands-24081.herokuapp.com/teacher', {
     //   name: 'Kirill Gusyatin',
     //   course: 'JS',
@@ -88,6 +112,7 @@ class Login extends Component {
                 rows='3'
                 onChange={this.handleTextareaChange}
               />
+              {this.state.errorMessage ? <p className='col-12 error-notification'>{this.state.errorMessage}</p> : ''}
             </div>
             <input
               type='submit'

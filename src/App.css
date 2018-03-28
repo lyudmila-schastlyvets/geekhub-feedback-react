@@ -23,3 +23,7 @@
 .mg-bottom {
   margin-bottom: 20px;
 }
+
+.error-notification {
+  color: tomato;
+}
