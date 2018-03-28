@@ -29,7 +29,7 @@ class SelectTeachersComponent extends Component {
     >
       {teachers.map((teacher) => (
         <option key={teacher._id}
-                value={teacher.name}>{teacher.name}</option>)
+                value={teacher._id}>{teacher.name}</option>)
       )}
     </select>
     )

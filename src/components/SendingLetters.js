@@ -12,7 +12,7 @@ class Login extends Component {
       teachers: [],
       chosenTeachers: [],
       emails: '',
-      errorMessage: ''
+      errorMessage: {}
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,23 +38,41 @@ class Login extends Component {
     event.preventDefault()
     let localThis = this;
     this.setState({
-      errorMessage: ''
+      errorMessage: {
+        errorEmails: '',
+        errorTeachers: ''
+      }
     })
     if (this.state.emails === '') {
       localThis.setState({
-        errorMessage: 'Email address is required'
+        errorMessage: {
+          errorEmails: 'Email address is required',
+          errorTeachers: this.state.errorMessage.errorTeachers
+        }
+      })
+      return
+    }
+    if (!localThis.state.chosenTeachers.length > 0) {
+      localThis.setState({
+        errorMessage: {
+          errorEmails: this.state.errorMessage.errorEmails,
+          errorTeachers: 'Please choose the teacher'
+        }
       })
       return
     }
     let str = this.state.emails.split(', ');
 
     str.forEach(function (el) {
-      if (localThis.state.errorMessage) {
+      if (localThis.state.errorMessage.errorEmails) {
         return
       } else {
         if (!EMAIL_VALIDATION_REGEX.test(el)) {
           localThis.setState({
-            errorMessage: 'Enter correct email(s)'
+            errorMessage: {
+              errorEmails: 'Enter correct email(s)',
+              errorTeachers: localThis.state.errorMessage.errorTeachers
+            }
           })
           return
         } else {
@@ -105,6 +123,8 @@ class Login extends Component {
               handleSelectChange={this.handleSelectChange}
             />
             <div className="single-form-row row justify-content-md-center">
+              {this.state.errorMessage.errorTeachers ? <p className='col-12 error-notification'>
+                {this.state.errorMessage.errorTeachers}</p> : ''}
               <textarea
                 className='form-control col-lg-4'
                 name='pass'
@@ -112,7 +132,8 @@ class Login extends Component {
                 rows='3'
                 onChange={this.handleTextareaChange}
               />
-              {this.state.errorMessage ? <p className='col-12 error-notification'>{this.state.errorMessage}</p> : ''}
+              {this.state.errorMessage.errorEmails ? <p className='col-12 error-notification'>
+                {this.state.errorMessage.errorEmails}</p> : ''}
             </div>
             <input
               type='submit'
