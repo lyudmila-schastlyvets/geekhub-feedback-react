@@ -23,10 +23,9 @@ class SelectTeachersComponent extends Component {
     this.state.selects.push(
       <select
       name="teacher"
-      id="teacher_select"
+      id={this.state.count + ' teacher_select'}
       className='custom-select col-lg-4'
       onChange={handleSelectChange}
-      key={this.state.count}
     >
       {teachers.map((teacher) => (
         <option key={teacher._id}
@@ -42,9 +41,9 @@ class SelectTeachersComponent extends Component {
         <button
           className="mg-bottom btn btn-primary"
           onClick={this.addSelectFunction}>Add teacher</button>
-          {this.state.selects.map(function (el) {
+          {this.state.selects.map(function (el, index) {
             return (
-              <div className="single-form-row row justify-content-md-center ">
+              <div className="single-form-row row justify-content-md-center" key={index}>
                 {el}
               </div>
             )
