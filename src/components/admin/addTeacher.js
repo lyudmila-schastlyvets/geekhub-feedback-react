@@ -83,8 +83,8 @@ class addTeacher extends Component {
                     <select name='course'
                             value={this.state.course}
                             onChange={this.dataChange}>
-                        {this.state.courses.map(function (course) {
-                            return (<option value='{course}'>{course}</option>)
+                        {this.state.courses.map(function (course, key) {
+                            return (<option key={key} value={course}>{course}</option>)
                         })}
                     </select><br/>
                     <input

@@ -27,7 +27,6 @@ class Teachers extends Component {
     }
 
     render() {
-        console.log(this.state.teachers, this.item)
         return (
             <div>
                 <h1>Teachers</h1>
@@ -43,7 +42,6 @@ class Teachers extends Component {
                             {
                                 Header: 'Image',
                                 accessor: 'image'
-
                             },
                             {
                                 Header: 'Course',
