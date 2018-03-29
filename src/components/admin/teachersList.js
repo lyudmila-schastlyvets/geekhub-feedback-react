@@ -10,6 +10,8 @@ class Teachers extends Component {
         this.state = {
             teachers: []
         }
+
+        this.handleDelete = this.handleDelete.bind(this)
     }
 
     componentDidMount() {
@@ -26,7 +28,16 @@ class Teachers extends Component {
             )
     }
 
+    handleDelete(event) {
+        axios.delete(`https://rocky-sands-24081.herokuapp.com/teacher/${event._id}`)
+            .then(res => {
+                console.log(res)
+                console.log(res.data)
+            })
+    }
+
     render() {
+        var item = this.state.teachers.length
         return (
             <div>
                 <h1>Teachers</h1>
@@ -46,9 +57,15 @@ class Teachers extends Component {
                             {
                                 Header: 'Course',
                                 accessor: 'course'
+                            },
+                            {
+                                Header: '',
+                                Cell: row => (
+                                        <a onClick={() => this.handleDelete(row.original)}>Delete</a>
+                                )
                             }
                         ]}
-                        pageSize={(this.state.teachers.length < 10) ? this.state.teachers.length : 10}
+                        pageSize={(item < 10) ? item : 10}
                         className='-striped -highlight'
                         filterable
                     />
