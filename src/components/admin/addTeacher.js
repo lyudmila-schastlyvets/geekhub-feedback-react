@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import update from 'immutability-helper'
+import axios from 'axios'
 
 class addTeacher extends Component {
     constructor(props) {
@@ -8,8 +9,8 @@ class addTeacher extends Component {
         this.state = {
             teacher: {
                 name: '',
-                img: '',
-                course: ''
+                course: '',
+                image: ''
             },
             errors: {
                 required: ''
@@ -47,8 +48,8 @@ class addTeacher extends Component {
         this.setState({
             teacher: {
                 name: this.state.name,
-                img: this.state.img,
-                course: this.state.course
+                course: this.state.course,
+                image: this.state.img
             },
             errors: {
                 required: this.state.required
@@ -60,6 +61,18 @@ class addTeacher extends Component {
         } else {
             this.state.errors.required = ''
         }
+        const teacher = this.state.teacher
+        axios.post('https://rocky-sands-24081.herokuapp.com/teacher', {
+            name: teacher.name,
+            course: teacher.course,
+            image: teacher.image
+        })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     render() {
