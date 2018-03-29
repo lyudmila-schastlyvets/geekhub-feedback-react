@@ -1,22 +1,25 @@
 import React, {Component} from 'react'
 import {withRouter, Link} from 'react-router-dom'
 import axios from 'axios'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
 
 class Teachers extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            teachers: []
+        }
+    }
 
     componentDidMount() {
         axios.get('https://rocky-sands-24081.herokuapp.com/teacher')
-            .then(function (response) {
-                document.getElementById('teachers').innerHTML = response.data.map(function (teacher) {
-                    return (
-                        '<ul class="row">' +
-                        '<li class="col">' + teacher.image + '</li>' +
-                        '<li class="col">' + teacher.name + '</li>' +
-                        '<li class="col">' + teacher.course + '</li>' +
-                        '</ul>'
-                    )
-                }).join('')
-            })
+            .then(function(response) {
+                this.setState({
+                    teachers: response.data
+                })
+            }.bind(this))
+
             .catch(function (error) {
                     console.log('error ' + error);
                 }
@@ -28,7 +31,28 @@ class Teachers extends Component {
             <div>
                 <h1>Teachers</h1>
                 <Link to='/admin/add_teacher'>Add teacher</Link>
-                <div id="teachers" className="teachers-list"></div>
+                <div id='teachers' className='teachers-list'>
+                    <ReactTable
+                        data={this.state.teachers}
+                        columns={[
+                            {
+                                Header: 'Name',
+                                accessor: 'name'
+                            },
+                            {
+                                Header: 'Image',
+                                accessor: 'image'
+
+                            },
+                            {
+                                Header: 'Course',
+                                accessor: 'course'
+                            }
+                        ]}
+                        defaultPageSize={10}
+                        className="-striped-highlight"
+                    />
+                </div>
             </div>
         )
     }
