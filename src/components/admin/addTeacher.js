@@ -13,7 +13,21 @@ class addTeacher extends Component {
             },
             errors: {
                 required: ''
-            }
+            },
+            courses: [
+                'Frontend + CMS',
+                'Frontend + JS',
+                'Online Marketing',
+                'Advanced PHP',
+                'Javascript',
+                'Java for Web',
+                'Ruby on Rails',
+                'Python',
+                'Quality Assurance',
+                'Advanced Android',
+                'Project Management',
+                'Motion Graphics'
+            ]
         }
 
         this.dataChange = this.dataChange.bind(this)
@@ -50,7 +64,6 @@ class addTeacher extends Component {
 
     render() {
         return (
-
             <div>Teacher form
                 <form>
                     <input
@@ -70,18 +83,9 @@ class addTeacher extends Component {
                     <select name='course'
                             value={this.state.course}
                             onChange={this.dataChange}>
-                        <option value="Frontend + CMS">Frontend + CMS</option>
-                        <option value="Frontend + JS">Frontend + JS</option>
-                        <option value="Online Marketing">Online Marketing</option>
-                        <option value="Advanced PHP">Advanced PHP</option>
-                        <option value="Javascript">Javascript</option>
-                        <option value="Java for Web">Java for Web</option>
-                        <option value="Ruby On Rails">Ruby on Rails</option>
-                        <option value="Python">Python</option>
-                        <option value="Quality Assurance">Quality Assurance</option>
-                        <option value="Advanced Android">Advanced Android</option>
-                        <option value="Project Management">Project Management</option>
-                        <option value="Motion Graphics">Motion Graphics</option>
+                        {this.state.courses.map(function (course) {
+                            return (<option value='{course}'>{course}</option>)
+                        })}
                     </select><br/>
                     <input
                         type='submit'

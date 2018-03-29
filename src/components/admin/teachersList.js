@@ -38,7 +38,7 @@ class Teachers extends Component {
                         columns={[
                             {
                                 Header: 'Name',
-                                accessor: 'name',
+                                accessor: 'name'
                             },
                             {
                                 Header: 'Image',
@@ -47,7 +47,7 @@ class Teachers extends Component {
                             },
                             {
                                 Header: 'Course',
-                                accessor: 'course',
+                                accessor: 'course'
                             }
                         ]}
                         pageSize={(this.state.teachers.length < 10) ? this.state.teachers.length : 10}
