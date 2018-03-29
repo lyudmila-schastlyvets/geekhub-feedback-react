@@ -14,19 +14,20 @@ class Teachers extends Component {
 
     componentDidMount() {
         axios.get('https://rocky-sands-24081.herokuapp.com/teacher')
-            .then(function(response) {
+            .then(function (response) {
                 this.setState({
                     teachers: response.data
                 })
             }.bind(this))
 
             .catch(function (error) {
-                    console.log('error ' + error);
+                    console.log('error ' + error)
                 }
             )
     }
 
     render() {
+        console.log(this.state.teachers, this.item)
         return (
             <div>
                 <h1>Teachers</h1>
@@ -37,7 +38,7 @@ class Teachers extends Component {
                         columns={[
                             {
                                 Header: 'Name',
-                                accessor: 'name'
+                                accessor: 'name',
                             },
                             {
                                 Header: 'Image',
@@ -46,11 +47,12 @@ class Teachers extends Component {
                             },
                             {
                                 Header: 'Course',
-                                accessor: 'course'
+                                accessor: 'course',
                             }
                         ]}
-                        defaultPageSize={10}
-                        className="-striped-highlight"
+                        pageSize={(this.state.teachers.length < 10) ? this.state.teachers.length : 10}
+                        className='-striped -highlight'
+                        filterable
                     />
                 </div>
             </div>
