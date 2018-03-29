@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import axios from 'axios'
+import { API_URL } from './../constants'
 
 class Login extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Login extends Component {
   handleSubmit(event) {
     // let localThis = this;
     event.preventDefault()
-    axios.post('https://rocky-sands-24081.herokuapp.com/login?login=' + this.state.name + '&password=' + this.state.pass)
+    axios.post(API_URL + '/login?login=' + this.state.name + '&password=' + this.state.pass)
       .then(function (response) {
         if (response.data) {
           // this.props.loggedIn = 'true'

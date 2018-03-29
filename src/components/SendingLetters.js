@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import SelectTeacherComponent from './SelectTeacherComponent'
 import { EMAIL_VALIDATION_REGEX } from './../constants'
+import { API_URL } from './../constants'
 
 class Login extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Login extends Component {
       teachers: [],
       chosenTeachers: [],
       emails: '',
-      errorMessage: {}
+      errorMessage: {},
+      emailsArray: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,7 +24,7 @@ class Login extends Component {
 
   componentDidMount () {
     let localThis = this;
-    axios.get('https://rocky-sands-24081.herokuapp.com/teacher')
+    axios.get(API_URL + '/teacher')
       .then(function (response) {
         localThis.setState({
           teachers: response.data
@@ -76,28 +78,31 @@ class Login extends Component {
           })
           return
         } else {
-          console.log({
-            "email": el.toString(),
-            "teachers": localThis.state.chosenTeachers
-          })
+          localThis.state.emailsArray.push(el.toString())
         }
       }
     })
-    // axios.post('url', {
-    //   "email": el.toString(),
-    //   "teachers": this.state.teachers
-    // })
-    // axios.post('https://rocky-sands-24081.herokuapp.com/teacher', {
-    //   name: 'Kirill Gusyatin',
-    //   course: 'JS',
-    //   image: 'String'
-    // })
-    //   .then(function (res) {
-    //     console.log(res)
-    //   })
-    //   .catch(function (err) {
-    //     console.log(err)
-    //   })
+    console.log({
+      "emails": this.state.emailsArray,
+      "teachers": this.state.chosenTeachers
+    })
+    axios.post(API_URL + '/sendmail', {
+      "emails": this.state.emailsArray,
+      "teachers": this.state.chosenTeachers
+    })
+      .then(function (res) {
+        console.log(res)
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+    this.setState({
+      teachers: [],
+      chosenTeachers: [],
+      emails: '',
+      errorMessage: {},
+      emailsArray: []
+    })
   }
 
   handleSelectChange(e) {
