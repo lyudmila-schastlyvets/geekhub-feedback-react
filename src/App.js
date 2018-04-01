@@ -7,6 +7,7 @@ import Feedback from './components/admin/feedback'
 import Teachers from './components/admin/teachersList'
 import SendingLetters from './components/admin/sendingLetters'
 import addTeacher from './components/admin/addTeacher'
+import Teacher from './components/admin/teacher'
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
                   <Route path='/admin/feedback' component={Feedback} />
                   <Route path='/admin/teachers' component={Teachers} />
                   <Route path='/admin/add_teacher' component={addTeacher} />
+                  <Route path='/admin/teacher' component={Teacher} />
                   <Route path='/admin/sending_letters' component={SendingLetters} />
               </Switch>
           </div>

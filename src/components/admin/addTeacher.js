@@ -101,14 +101,14 @@ class addTeacher extends Component {
                         placeholder='Name'
                         value={this.state.teacher.name}
                         onChange={this.dataChange}
-                    /><br/>
-                    <div className="errors">
+                    />
+                    <div className='errors'>
                         {this.state.errors.name}
                     </div>
                     <input
-                        name='img'
+                        name='image'
                         type='file'
-                        value={this.state.teacher.img}
+                        value={this.state.teacher.image}
                         onChange={this.dataChange}
                     /><br/>
                     <select name='course'
@@ -118,7 +118,7 @@ class addTeacher extends Component {
                             return (<option key={key} value={course}>{course}</option>)
                         })}
                     </select>
-                    <div className="errors">
+                    <div className='errors'>
                         {this.state.errors.course}
                     </div>
                     <input

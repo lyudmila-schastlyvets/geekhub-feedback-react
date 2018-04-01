@@ -48,7 +48,9 @@ class Teachers extends Component {
                         columns={[
                             {
                                 Header: 'Name',
-                                accessor: 'name'
+                                accessor: 'name',
+                                Cell: row => (
+                                    <a onClick={() => this.props.history.push('/admin/teacher/:id')}>{row.value}</a>                             )
                             },
                             {
                                 Header: 'Image',
