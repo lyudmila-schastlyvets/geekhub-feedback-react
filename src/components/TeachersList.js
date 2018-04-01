@@ -3,6 +3,7 @@ import {withRouter, Link} from 'react-router-dom'
 import axios from 'axios'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import logo from '../images/teacher.png'
 
 class Teachers extends Component {
     constructor(props) {
@@ -50,11 +51,15 @@ class Teachers extends Component {
                                 Header: 'Name',
                                 accessor: 'name',
                                 Cell: row => (
-                                    <a onClick={() => this.props.history.push('/admin/teacher/:id')}>{row.value}</a>                             )
+                                    <a onClick={() => this.props.history.push('/admin/teacher/:id')}>{row.value}</a>
+                                )
                             },
                             {
                                 Header: 'Image',
-                                accessor: 'image'
+                                accessor: 'image',
+                                Cell: row => (
+                                    <img width='200px' src={row.value ? row.value : logo} alt={row.original.name}/>
+                                )
                             },
                             {
                                 Header: 'Course',
