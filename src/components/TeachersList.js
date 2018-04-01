@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter, Link} from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import logo from '../images/teacher.png'
@@ -16,7 +16,7 @@ class Teachers extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://rocky-sands-24081.herokuapp.com/teacher')
+        API.get('teacher')
             .then(function (response) {
                 this.setState({
                     teachers: response.data
@@ -30,7 +30,7 @@ class Teachers extends Component {
     }
 
     handleDelete(event) {
-        axios.delete(`https://rocky-sands-24081.herokuapp.com/teacher/${event._id}`)
+        API.delete(`teacher/${event._id}`)
             .then(res => {
                 console.log(res)
                 console.log(res.data)

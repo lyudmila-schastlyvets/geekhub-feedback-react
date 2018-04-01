@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import update from 'immutability-helper'
-import axios from 'axios'
+import API from '../api'
 
 class addTeacher extends Component {
     constructor(props) {
@@ -69,7 +69,7 @@ class addTeacher extends Component {
         if (!this.state.errors.name &&
             !this.state.errors.course &&
             (!this.state.errors.course && !this.state.errors.name)) {
-            axios.post('https://rocky-sands-24081.herokuapp.com/teacher', {
+            API.post('teacher', {
                 name: teacher.name,
                 course: teacher.course,
                 image: teacher.image

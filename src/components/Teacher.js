@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import axios from 'axios'
+import API from '../api'
 
 class Teacher extends Component {
     constructor(props) {
@@ -13,7 +13,7 @@ class Teacher extends Component {
 
     componentDidMount(props) {
         console.log(props.match.params.id)
-        axios.get(`https://rocky-sands-24081.herokuapp.com/teacher/${props.match.params.id}`)
+        API.get(`teacher/${props.match.params.id}`)
             .then(function (response) {
                 this.setState({
                     teacher: response.data
@@ -24,7 +24,7 @@ class Teacher extends Component {
                     console.log('error ' + error)
                 }
             )
-        axios.get(`https://rocky-sands-24081.herokuapp.com/comments/${props.match.params.id}`)
+        API.get(`comments/${props.match.params.id}`)
             .then(function (response) {
                 this.setState({
                     comments: response.data
