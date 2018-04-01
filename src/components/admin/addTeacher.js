@@ -13,7 +13,8 @@ class addTeacher extends Component {
                 image: ''
             },
             errors: {
-                required: ''
+                name: '',
+                course: ''
             },
             courses: [
                 'Frontend + CMS',
@@ -47,32 +48,46 @@ class addTeacher extends Component {
         event.preventDefault()
         this.setState({
             teacher: {
-                name: this.state.name,
-                course: this.state.course,
-                image: this.state.img
-            },
-            errors: {
-                required: this.state.required
+                name: this.state.teacher.name,
+                course: this.state.teacher.course,
+                image: this.state.teacher.img
             }
         })
         // check if 'name' is empty write error
         if (!this.state.teacher.name) {
-            this.state.errors.required = 'Name is required'
+            this.state.errors.name = 'Name is required'
         } else {
-            this.state.errors.required = ''
+            this.state.errors.name = ''
+        }
+        // check if 'course' is empty write error
+        if (!this.state.teacher.course) {
+            this.state.errors.course = 'Course is required'
+        } else {
+            this.state.errors.course = ''
         }
         const teacher = this.state.teacher
-        axios.post('https://rocky-sands-24081.herokuapp.com/teacher', {
-            name: teacher.name,
-            course: teacher.course,
-            image: teacher.image
-        })
-            .then(function (response) {
-                console.log(response)
+        if (!this.state.errors.name &&
+            !this.state.errors.course &&
+            (!this.state.errors.course && !this.state.errors.name)) {
+            axios.post('https://rocky-sands-24081.herokuapp.com/teacher', {
+                name: teacher.name,
+                course: teacher.course,
+                image: teacher.image
             })
-            .catch(function (error) {
-                console.log(error)
+                .then(function (response) {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+            this.setState({
+                teacher: {
+                    name: '',
+                    course: '',
+                    image: ''
+                }
             })
+        }
     }
 
     render() {
@@ -84,22 +99,28 @@ class addTeacher extends Component {
                         name='name'
                         type='text'
                         placeholder='Name'
-                        value={this.state.name}
+                        value={this.state.teacher.name}
                         onChange={this.dataChange}
                     /><br/>
+                    <div className="errors">
+                        {this.state.errors.name}
+                    </div>
                     <input
                         name='img'
                         type='file'
-                        value={this.state.img}
+                        value={this.state.teacher.img}
                         onChange={this.dataChange}
                     /><br/>
                     <select name='course'
-                            value={this.state.course}
+                            value={this.state.teacher.course}
                             onChange={this.dataChange}>
                         {this.state.courses.map(function (course, key) {
                             return (<option key={key} value={course}>{course}</option>)
                         })}
-                    </select><br/>
+                    </select>
+                    <div className="errors">
+                        {this.state.errors.course}
+                    </div>
                     <input
                         type='submit'
                         value='Save'
