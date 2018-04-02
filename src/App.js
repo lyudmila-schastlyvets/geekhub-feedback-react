@@ -9,6 +9,7 @@ import Teachers from './components/Teachers/Teachers'
 import SendingLetters from './components/SendingLetters'
 import Login from './components/Login'
 import Logout from './components/Logout'
+import Comments from './components/Comments'
 
 class App extends Component {
 
@@ -46,6 +47,7 @@ class App extends Component {
               <Route path='/teachers' component={Teachers} />
               <Route path='/sending_letters' component={SendingLetters} />
               <Route path='/login' component={Login} loggedIn={this.state.loggedIn}/>
+              <Route path='/comment' component={Comments}/>
             </Switch>
           </div>
       </div>
