@@ -27,13 +27,13 @@ class Comments extends Component {
         name: "Kina",
         course: "JS",
         id: "5ac1e517d095760004605a11",
-        image: "url"
+        image: ""
       },
       {
-        name: "Somebody",
-        course: "Online Marketing",
-        id: "5ac13ea927256400040a3197",
-        image: "url"
+        name: "Kirill ",
+        course: "JS",
+        id: "5ac2233bf25dff000406065a",
+        image: ""
       }
     ]
     this.setState({
@@ -83,18 +83,21 @@ class Comments extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Comment Page Heading</h1>
-        {this.state.teachers.map((teacher, index) => {
-          this.state.commentFormsNumber = index + 1
-          return <CommentForm
-            key={teacher.id}
-            teacher={teacher}
-            change={this.changeComponent}
-            index={index}
-          />
-          }
-        )}
+        <p>Som text will be here</p>
+        <div className="row">
+          {this.state.teachers.map((teacher, index) => {
+              this.state.commentFormsNumber = index + 1
+              return <CommentForm
+                key={teacher.id}
+                teacher={teacher}
+                change={this.changeComponent}
+                index={index}
+              />
+            }
+          )}
+        </div>
         {this.state.errorMessage !== '' ? <p>{this.state.errorMessage}</p> : ''}
         <button
           className="btn btn-primary"

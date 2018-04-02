@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import logo from './../images/teacher.png'
 
 class CommentForm extends Component {
   constructor(props) {
@@ -23,22 +24,27 @@ class CommentForm extends Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.props.teacher.name}</h2>
-        <div className='form container'>
-          <form className="">
-            <div className="single-form-row row justify-content-md-center">
-              <textarea
-                className='form-control col-lg-4'
-                name='pass'
-                placeholder='Please be free to leave the truth comment'
-                rows='3'
-                onChange={this.handleTextareaChange}
-              />
-              <p className='col-12 error-notification'>
-              </p>
-            </div>
-          </form>
+      <div className="col-md-6">
+        <div className="info">
+          <div className="image">
+            <img src={this.props.teacher.image || logo} alt=""/>
+          </div>
+          <div className="info-data">
+            <h2>{this.props.teacher.name}</h2>
+            <h3>{this.props.teacher.course}</h3>
+          </div>
+        </div>
+
+        <div className=' '>
+          <textarea
+            className='form-control'
+            name='pass'
+            placeholder='Please be free to leave the truth comment'
+            rows='6'
+            onChange={this.handleTextareaChange}
+          />
+          <p className='error-notification'>
+          </p>
         </div>
       </div>
     )
