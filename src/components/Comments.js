@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 // import { EMAIL_VALIDATION_REGEX } from './../constants'
-import { API_URL } from './../constants'
+// import API from './../api'
 import CommentForm from './CommentForm'
 
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 // import { EMAIL_VALIDATION_REGEX } from './../constants'
-import { API_URL } from './../constants'
+import API from './../api'
 
 class CommentForm extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class CommentForm extends Component {
 
   componentDidMount () {
     let localThis = this;
-    axios.get(API_URL + '/teacher')
+    API.get('teacher')
       .then(function (response) {
         localThis.setState({
           teachers: response.data

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import axios from 'axios'
 import SelectTeacherComponent from './SelectTeacherComponent'
 import { EMAIL_VALIDATION_REGEX } from './../constants'
-import { API_URL } from './../constants'
+import API from "../api";
 
 class Login extends Component {
   constructor(props) {
@@ -24,7 +23,7 @@ class Login extends Component {
 
   componentDidMount () {
     let localThis = this;
-    axios.get(API_URL + '/teacher')
+    API.get('teacher')
       .then(function (response) {
         localThis.setState({
           teachers: response.data
@@ -86,7 +85,7 @@ class Login extends Component {
       "emails": this.state.emailsArray,
       "teachers": this.state.chosenTeachers
     })
-    axios.post(API_URL + '/sendmail', {
+    API.post('sendmail', {
       "emails": this.state.emailsArray,
       "teachers": this.state.chosenTeachers
     })
