@@ -5,7 +5,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import logo from '../images/teacher.png'
 
-class Teachers extends Component {
+class TeachersList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -30,11 +30,28 @@ class Teachers extends Component {
     }
 
     handleDelete(event) {
-        API.delete(`teacher/${event._id}`)
-            .then(res => {
-                console.log(res)
-                console.log(res.data)
-            })
+        if (window.confirm('Do you want delete ' + event.name + '?')) {
+            API.get(`removeteacher/${event._id}`)
+                .then(res => {
+                    console.log(res)
+                    console.log(res.data)
+                })
+                .catch(function (error) {
+                        console.log('error ' + error)
+                    }
+                )
+            API.get('teacher')
+                .then(function (response) {
+                    this.setState({
+                        teachers: response.data
+                    })
+                }.bind(this))
+
+                .catch(function (error) {
+                        console.log('error ' + error)
+                    }
+                )
+        }
     }
 
     render() {
@@ -42,7 +59,7 @@ class Teachers extends Component {
         return (
             <div>
                 <h1>Teachers</h1>
-                <Link to='/admin/add_teacher'>Add teacher</Link>
+                <Link to='/admin/form_teacher'>Add teacher</Link>
                 <div id='teachers' className='teachers-list'>
                     <ReactTable
                         data={this.state.teachers}
@@ -51,7 +68,7 @@ class Teachers extends Component {
                                 Header: 'Name',
                                 accessor: 'name',
                                 Cell: row => (
-                                    <a onClick={() => this.props.history.push('/admin/teacher/:id')}>{row.value}</a>
+                                    <a onClick={() => this.props.history.push(`/admin/teacher/${row.original._id}`)}>{row.value}</a>
                                 )
                             },
                             {
@@ -68,7 +85,15 @@ class Teachers extends Component {
                             {
                                 Header: '',
                                 Cell: row => (
-                                        <a onClick={() => this.handleDelete(row.original)}>Delete</a>
+                                    <Link
+                                        //onClick={() => this.handleDelete(row.original)}
+                                        to={`/admin/form_teacher/${row.original._id}`}>Edit</Link>
+                                ),
+                            },
+                            {
+                                Header: '',
+                                Cell: row => (
+                                    <a onClick={() => this.handleDelete(row.original)}>Delete</a>
                                 )
                             }
                         ]}
@@ -82,4 +107,4 @@ class Teachers extends Component {
     }
 }
 
-export default withRouter(Teachers)
+export default withRouter(TeachersList)
