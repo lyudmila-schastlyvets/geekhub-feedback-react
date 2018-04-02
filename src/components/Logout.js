@@ -4,23 +4,24 @@ import { withRouter, Redirect } from 'react-router-dom'
 class Logout extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      loggedIn: localStorage.getItem('loggedIn')
+    }
 
     this.logoutFunc = this.logoutFunc.bind(this)
   }
 
   logoutFunc() {
     localStorage.setItem('loggedIn', 'false')
-    // this.props.loggedIn = 'false'
-    // this.props.setState({
-    //   loggedIn: 'false'
-    // })
-    return <Redirect to='/login'/>;
-
+    this.setState({
+      loggedIn: 'false'
+    })
   }
 
   render() {
+    console.log(this.state.loggedIn)
     return (
-      !this.props.loggedIn ? '' :
+      this.state.loggedIn !== 'true' ? <Redirect to='/admin/login'/> :
       <button
         className="btn btn-primary"
         onClick={this.logoutFunc}>

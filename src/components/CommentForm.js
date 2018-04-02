@@ -1,80 +1,50 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import axios from 'axios'
-// import { EMAIL_VALIDATION_REGEX } from './../constants'
-import API from './../api'
+import logo from './../images/teacher.png'
 
 class CommentForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      teachers: [],
-      chosenTeachers: [],
-      emails: '',
-      errorMessage: {},
-      emailsArray: []
+      message: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
   }
 
-  componentDidMount () {
-    let localThis = this;
-    API.get('teacher')
-      .then(function (response) {
-        localThis.setState({
-          teachers: response.data
-        })
-      })
-      .catch(function (error) {
-          console.log('error ' + error);
-        }
-      );
-  }
-
   handleSubmit(event) {
     event.preventDefault()
-    // let localThis = this;
-
-  }
-
-  handleSelectChange(e) {
 
   }
 
   handleTextareaChange(e) {
-    this.setState({
-      emails: e.target.value
-    })
+    this.props.change(e.target.value, this.props.teacher.id, this.props.index)
   }
 
   render() {
     return (
-      <div>
-        <h2>Comment About Teacher</h2>
-        <div className='form container'>
-          <form className="">
-            <div className="single-form-row row justify-content-md-center">
-              <p className='col-12 error-notification'>
-              </p>
-              <textarea
-                className='form-control col-lg-4'
-                name='pass'
-                placeholder='Please be free to leave the truth comment'
-                rows='3'
-                onChange={this.handleTextareaChange}
-              />
-              <p className='col-12 error-notification'>
-              </p>
-            </div>
-            <input
-              type='submit'
-              className='btn btn-primary'
-              value='Submit'
-              onClick={this.handleSubmit}
-            />
-          </form>
+      <div className="col-md-6">
+        <div className="info">
+          <div className="image">
+            <img src={this.props.teacher.image || logo} alt=""/>
+          </div>
+          <div className="info-data">
+            <h2>{this.props.teacher.name}</h2>
+            <h3>{this.props.teacher.course}</h3>
+          </div>
+        </div>
+
+        <div className=' '>
+          <textarea
+            className='form-control'
+            name='pass'
+            placeholder='Please be free to leave the truth comment'
+            rows='6'
+            onChange={this.handleTextareaChange}
+          />
+          <p className='error-notification'>
+          </p>
         </div>
       </div>
     )
