@@ -22,13 +22,12 @@ class Login extends Component {
   }
 
   componentDidMount () {
-    let localThis = this;
     API.get('teacher')
       .then(function (response) {
-        localThis.setState({
+        this.setState({
           teachers: response.data
         })
-      })
+      }.bind(this))
       .catch(function (error) {
           console.log('error ' + error);
         }
@@ -37,7 +36,6 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    let localThis = this;
     this.setState({
       errorMessage: {
         errorEmails: '',
@@ -45,7 +43,7 @@ class Login extends Component {
       }
     })
     if (this.state.emails === '') {
-      localThis.setState({
+      this.setState({
         errorMessage: {
           errorEmails: 'Email address is required',
           errorTeachers: this.state.errorMessage.errorTeachers
@@ -53,8 +51,8 @@ class Login extends Component {
       })
       return
     }
-    if (!localThis.state.chosenTeachers.length > 0) {
-      localThis.setState({
+    if (!this.state.chosenTeachers.length > 0) {
+      this.setState({
         errorMessage: {
           errorEmails: this.state.errorMessage.errorEmails,
           errorTeachers: 'Please choose the teacher'
@@ -65,11 +63,11 @@ class Login extends Component {
     let str = this.state.emails.split(', ');
 
     str.forEach(function (el) {
-      if (localThis.state.errorMessage.errorEmails) {
+      if (this.state.errorMessage.errorEmails) {
         return
       } else {
         if (!EMAIL_VALIDATION_REGEX.test(el)) {
-          localThis.setState({
+          this.setState({
             errorMessage: {
               errorEmails: 'Enter correct email(s)',
               errorTeachers: localThis.state.errorMessage.errorTeachers
@@ -80,7 +78,7 @@ class Login extends Component {
           localThis.state.emailsArray.push(el.toString())
         }
       }
-    })
+    }.bind(this))
     console.log({
       "emails": this.state.emailsArray,
       "teachers": this.state.chosenTeachers

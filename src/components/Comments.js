@@ -4,7 +4,6 @@ import API from './../api'
 import CommentForm from './CommentForm'
 import update from 'immutability-helper'
 
-
 class Comments extends Component {
   constructor(props) {
     super(props)
@@ -20,8 +19,13 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    // API.get('teacher' + this.props.match.params.id)
-    // console.log(this.props.match.params.id)
+    API.get('feedback/' + this.props.match.params.id)
+      .then(function (res) {
+        console.log(res)
+      }.bind(this))
+      .catch(function (err) {
+        console.log(err)
+      })
     const teachers = [
       {
         name: "Kina",

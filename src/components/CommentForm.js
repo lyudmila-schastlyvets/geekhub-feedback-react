@@ -9,13 +9,7 @@ class CommentForm extends Component {
       message: ''
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
-
   }
 
   handleTextareaChange(e) {
@@ -34,8 +28,7 @@ class CommentForm extends Component {
             <h3>{this.props.teacher.course}</h3>
           </div>
         </div>
-
-        <div className=' '>
+        <div>
           <textarea
             className='form-control'
             name='pass'

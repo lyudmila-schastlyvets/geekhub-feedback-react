@@ -10,7 +10,6 @@ class SelectTeachersComponent extends Component {
     }
 
     this.addSelectFunction = this.addSelectFunction.bind(this)
-
   }
 
   addSelectFunction(e) {
