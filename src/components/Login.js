@@ -8,7 +8,7 @@ class Login extends Component {
     this.state = {
       name: '',
       pass: '',
-      loggedIn:localStorage.getItem('loggedIn')
+      loggedIn: localStorage.getItem('loggedIn')
     }
 
     this.nameChange = this.nameChange.bind(this)
@@ -29,23 +29,22 @@ class Login extends Component {
     API.post('login?login=' + this.state.name + '&password=' + this.state.pass)
       .then(function (response) {
         if (response.data) {
-          // this.props.loggedIn = 'true'
-          // this.setState({
-          //   loggedIn: 'true'
-          // })
           localStorage.setItem('loggedIn', 'true')
+          this.setState({
+            loggedIn: 'true'
+          })
         }
       }.bind(this))
       .catch(function (error) {
-          console.log('error ' + error);
+          console.log('error ' + error)
         }
-      );
+      )
   }
 
   render() {
     return (
       <div>
-        {localStorage.getItem('loggedIn') === 'true' ? (<Redirect to="/" />) : (<h1>Login</h1>) }
+        {this.state.loggedIn === 'true' ? (<Redirect to="/" />) : (<h1>Login</h1>) }
         <div className='login-page'>
           <form className="login-form">
             <input

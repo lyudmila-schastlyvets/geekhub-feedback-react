@@ -66,3 +66,8 @@ nav {
 .login-form > * {
   margin-bottom: 15px;
 }
+
+.login-form input[type="submit"] {
+  width: 120px;
+  align-self: center;
+}
