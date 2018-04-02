@@ -5,7 +5,7 @@ class CommentForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      errorMessage: ''
+      message: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -17,14 +17,8 @@ class CommentForm extends Component {
 
   }
 
-  handleSelectChange(e) {
-
-  }
-
   handleTextareaChange(e) {
-    this.setState({
-      emails: e.target.value
-    })
+    this.props.change(e.target.value, this.props.teacher.id, this.props.index)
   }
 
   render() {
@@ -34,8 +28,6 @@ class CommentForm extends Component {
         <div className='form container'>
           <form className="">
             <div className="single-form-row row justify-content-md-center">
-              <p className='col-12 error-notification'>
-              </p>
               <textarea
                 className='form-control col-lg-4'
                 name='pass'

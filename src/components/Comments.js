@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-// import API from './../api'
+import API from './../api'
 import CommentForm from './CommentForm'
+import update from 'immutability-helper'
 
 
 class Comments extends Component {
@@ -9,10 +10,13 @@ class Comments extends Component {
     super(props)
     this.state = {
       commentFormsNumber: 0,
-      teachers: []
+      teachers: [],
+      comments: [],
+      errorMessage: ''
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.commentsSubmit = this.commentsSubmit.bind(this)
+    this.changeComponent = this.changeComponent.bind(this)
   }
 
   componentDidMount() {
@@ -37,22 +41,65 @@ class Comments extends Component {
     })
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-
+  changeComponent(message, teacherID, index) {
+    let test = update(this.state, {
+      comments: {
+        [index]: {
+          $set: {
+            teacherID: teacherID,
+            message: message
+          }
+        }
+      }
+    })
+    this.setState(test)
   }
 
-  handleSelectChange(e) {
-
+  commentsSubmit() {
+    this.setState({
+      errorMessage: ''
+    })
+    if (this.state.comments.length === this.state.commentFormsNumber) {
+      console.log(this.state.comments)
+      this.state.comments.map((comment) => {
+        API.post('setcomment/', {
+          "forTeacher": comment.teacherID,
+          "content": comment.message,
+          "date": new Date()
+        })
+          .then(function (res) {
+            console.log(res)
+          })
+          .catch(function (err) {
+            console.log(err)
+          })
+      })
+    } else {
+      this.setState({
+        errorMessage: 'Please fill in required data'
+      })
+    }
   }
 
   render() {
     return (
       <div>
-        {console.log(this.state.teachers)}
         <h1>Comment Page Heading</h1>
-        {this.state.teachers.map((teacher) => <CommentForm key={teacher.id} teacher={teacher}/>)}
-        <button className="btn btn-primary">Leave Comment</button>
+        {this.state.teachers.map((teacher, index) => {
+          this.state.commentFormsNumber = index + 1
+          return <CommentForm
+            key={teacher.id}
+            teacher={teacher}
+            change={this.changeComponent}
+            index={index}
+          />
+          }
+        )}
+        {this.state.errorMessage !== '' ? <p>{this.state.errorMessage}</p> : ''}
+        <button
+          className="btn btn-primary"
+          onClick={this.commentsSubmit}
+        >Leave Comment</button>
       </div>
     )
   }
