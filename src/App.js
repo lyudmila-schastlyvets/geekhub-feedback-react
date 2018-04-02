@@ -10,7 +10,7 @@ import SendingLetters from './components/SendingLetters'
 import Login from './components/Login'
 import Logout from './components/Logout'
 import Comments from './components/Comments'
-import addTeacher from './components/FormTeacher'
+import FormTeacher from './components/FormTeacher'
 import Teacher from './components/Teacher'
 
 class App extends Component {
@@ -47,8 +47,8 @@ class App extends Component {
               <Route exact path='/admin' component={Home} />
               <Route path='/admin/feedback' component={Feedback} />
               <Route path='/admin/teachers' component={Teachers} />
-              <Route path='/admin/add_teacher' component={addTeacher} />
-              <Route path='/admin/teacher' component={Teacher} />
+              <Route path='/admin/form_teacher' component={FormTeacher} />
+              <Route path='/admin/teacher/:id' render={(props) => <Teacher {...props} />} />
               <Route path='/admin/sending_letters' component={SendingLetters} />
               <Route path='/admin/login' component={Login} loggedIn={this.state.loggedIn}/>
               <Route path='/comment' component={Comments}/>
