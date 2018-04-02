@@ -51,7 +51,7 @@ class App extends Component {
               <Route path='/admin/teacher' component={Teacher} />
               <Route path='/admin/sending_letters' component={SendingLetters} />
               <Route path='/admin/login' component={Login} loggedIn={this.state.loggedIn}/>
-              <Route path='/comment' component={Comments}/>
+              <Route path='/feedback/:id' component={Comments}/>
             </Switch>
           </div>
       </div>

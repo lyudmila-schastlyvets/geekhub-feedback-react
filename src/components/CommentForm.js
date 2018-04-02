@@ -1,40 +1,19 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-// import { EMAIL_VALIDATION_REGEX } from './../constants'
-import API from './../api'
 
 class CommentForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      teachers: [],
-      chosenTeachers: [],
-      emails: '',
-      errorMessage: {},
-      emailsArray: []
+      errorMessage: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
   }
 
-  componentDidMount () {
-    let localThis = this;
-    API.get('teacher')
-      .then(function (response) {
-        localThis.setState({
-          teachers: response.data
-        })
-      })
-      .catch(function (error) {
-          console.log('error ' + error);
-        }
-      );
-  }
-
   handleSubmit(event) {
     event.preventDefault()
-    // let localThis = this;
 
   }
 
@@ -51,7 +30,7 @@ class CommentForm extends Component {
   render() {
     return (
       <div>
-        <h2>Comment About Teacher</h2>
+        <h2>{this.props.teacher.name}</h2>
         <div className='form container'>
           <form className="">
             <div className="single-form-row row justify-content-md-center">
@@ -67,12 +46,6 @@ class CommentForm extends Component {
               <p className='col-12 error-notification'>
               </p>
             </div>
-            <input
-              type='submit'
-              className='btn btn-primary'
-              value='Submit'
-              onClick={this.handleSubmit}
-            />
           </form>
         </div>
       </div>
