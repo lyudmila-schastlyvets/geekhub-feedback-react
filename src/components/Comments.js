@@ -21,28 +21,14 @@ class Comments extends Component {
   componentDidMount() {
     API.get('feedback/' + this.props.match.params.id)
       .then(function (res) {
-        console.log(res)
+        this.setState({
+          teachers: res.data.result,
+          commentator: res.data.id
+        })
       }.bind(this))
       .catch(function (err) {
         console.log(err)
       })
-    const teachers = [
-      {
-        name: "Kina",
-        course: "JS",
-        id: "5ac1e517d095760004605a11",
-        image: ""
-      },
-      {
-        name: "Kirill ",
-        course: "JS",
-        id: "5ac2233bf25dff000406065a",
-        image: ""
-      }
-    ]
-    this.setState({
-      teachers: teachers
-    })
   }
 
   changeComponent(message, teacherID, index) {
@@ -89,12 +75,12 @@ class Comments extends Component {
     return (
       <div className="container">
         <h1>Comment Page Heading</h1>
-        <p>Som text will be here</p>
+        <p>Some text will be here</p>
         <div className="row">
           {this.state.teachers.map((teacher, index) => {
               this.state.commentFormsNumber = index + 1
               return <CommentForm
-                key={teacher.id}
+                key={teacher._id}
                 teacher={teacher}
                 change={this.changeComponent}
                 index={index}
@@ -102,7 +88,7 @@ class Comments extends Component {
             }
           )}
         </div>
-        {this.state.errorMessage !== '' ? <p>{this.state.errorMessage}</p> : ''}
+        {this.state.errorMessage !== '' ? <p className='error-notification'>{this.state.errorMessage}</p> : ''}
         <button
           className="btn btn-primary"
           onClick={this.commentsSubmit}

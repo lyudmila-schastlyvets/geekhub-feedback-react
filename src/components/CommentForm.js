@@ -13,7 +13,7 @@ class CommentForm extends Component {
   }
 
   handleTextareaChange(e) {
-    this.props.change(e.target.value, this.props.teacher.id, this.props.index)
+    this.props.change(e.target.value, this.props.teacher._id, this.props.index)
   }
 
   render() {
@@ -30,14 +30,12 @@ class CommentForm extends Component {
         </div>
         <div>
           <textarea
-            className='form-control'
+            className='form-control mg-bottom'
             name='pass'
             placeholder='Please be free to leave the truth comment'
             rows='6'
             onChange={this.handleTextareaChange}
           />
-          <p className='error-notification'>
-          </p>
         </div>
       </div>
     )
