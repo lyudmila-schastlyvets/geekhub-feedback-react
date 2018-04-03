@@ -8,7 +8,7 @@ class Login extends Component {
     this.state = {
       name: '',
       pass: '',
-      loggedIn:localStorage.getItem('loggedIn')
+      loggedIn: localStorage.getItem('loggedIn')
     }
 
     this.nameChange = this.nameChange.bind(this)
@@ -25,32 +25,30 @@ class Login extends Component {
   }
 
   handleSubmit(event) {
-    // let localThis = this;
     event.preventDefault()
     API.post('login?login=' + this.state.name + '&password=' + this.state.pass)
       .then(function (response) {
         if (response.data) {
-          // this.props.loggedIn = 'true'
-          // localThis.setState({
-          //   loggedIn: 'true'
-          // })
           localStorage.setItem('loggedIn', 'true')
+          this.setState({
+            loggedIn: 'true'
+          })
         }
-      })
+      }.bind(this))
       .catch(function (error) {
-          console.log('error ' + error);
+          console.log('error ' + error)
         }
-      );
+      )
   }
 
   render() {
     return (
       <div>
-        {localStorage.getItem('loggedIn') === 'true' ? (<Redirect to="/" />) : (<h1>Login</h1>) }
-        <div className='form'>
-          <form>
+        {this.state.loggedIn === 'true' ? (<Redirect to="/" />) : (<h1>Login</h1>) }
+        <div className='login-page'>
+          <form className="login-form">
             <input
-              className='required'
+              className='form-control'
               name='name'
               type='text'
               placeholder='Name'
@@ -58,7 +56,7 @@ class Login extends Component {
               required='required'
             />
             <input
-              className='required'
+              className='form-control'
               name='pass'
               type='text'
               placeholder='Password'
@@ -69,6 +67,7 @@ class Login extends Component {
               type='submit'
               value='Submit'
               onClick={this.handleSubmit}
+              className="btn btn-primary"
             />
           </form>
         </div>
