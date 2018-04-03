@@ -84,6 +84,7 @@ class TeachersList extends Component {
                 <Link
                     to='/admin/teachers/add_teacher'
                     onClick={this.handleClick}
+                    className='btn btn-primary'
                 >Add teacher</Link>
                 {
                     // modal for form add/edit teacher
@@ -135,7 +136,8 @@ class TeachersList extends Component {
                             {
                                 Header: '',
                                 Cell: row => (
-                                    <a onClick={() => {
+                                    <a className='btn btn-primary'
+                                       onClick={() => {
                                       this.props.history.push(
                                         `/admin/teachers/edit_teacher/${row.original._id}`
                                       )
@@ -149,7 +151,8 @@ class TeachersList extends Component {
                             {
                                 Header: '',
                                 Cell: row => (
-                                    <a onClick={() => this.handleDelete(row.original)}>
+                                    <a className='btn btn-primary'
+                                       onClick={() => this.handleDelete(row.original)}>
                                         Delete
                                     </a>
                                 )
