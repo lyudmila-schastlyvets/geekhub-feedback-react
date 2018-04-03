@@ -4,7 +4,7 @@ import {ModalContainer, ModalDialog} from 'react-modal-dialog-react16'
 import API from '../api'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import logo from '../images/teacher.png'
+import noPhoto from '../images/teacher.png'
 
 import FormTeacher from './FormTeacher'
 
@@ -123,7 +123,7 @@ class TeachersList extends Component {
                                     <img
                                         width='200px'
                                         // check if image not -> visible standard image
-                                        src={row.value ? row.value : logo}
+                                        src={row.value ? row.value : noPhoto}
                                         alt={row.original.name}
                                     />
                                 )

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import API from '../api'
+import noPhoto from '../images/teacher.png'
 
 class Teacher extends Component {
     constructor(props) {
@@ -41,7 +42,10 @@ class Teacher extends Component {
             <div>
                 <div className='teacher-info'>
                     <h1>{this.state.teacher.name}</h1>
-                    <img src={this.state.teacher.image} alt={this.state.teacher.name}/>
+                    <img
+                        src={this.state.teacher.image ? this.state.teacher.image : noPhoto}
+                        alt={this.state.teacher.name}
+                    />
                     <p>{this.state.teacher.course}</p>
                 </div>
                 <div className='comments'>{this.state.comments}</div>
