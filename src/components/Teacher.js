@@ -52,9 +52,11 @@ class Teacher extends Component {
                 </div>
                 <div className='comments'>
                     <h3>Feedback</h3>
-                    <ul>{this.state.comments.result.map(function (comment, key) {
-                        return (<li key={key}>{comment.content}</li>)
-                    })}
+                    <ul>{(this.state.comments.result.length === 0) ?
+                        (<div>No feedback</div>) :
+                        this.state.comments.result.map(function (comment, key) {
+                            return (<li key={key}>{comment.content}</li>)
+                        })}
                     </ul>
                 </div>
             </div>
