@@ -30,7 +30,8 @@ class FormTeacher extends Component {
                 'Project Management',
                 'Motion Graphics'
             ],
-            edit: false
+            edit: false,
+            info: ''
         }
 
         this.dataChange = this.dataChange.bind(this)
@@ -52,7 +53,8 @@ class FormTeacher extends Component {
                 name: this.state.teacher.name,
                 course: this.state.teacher.course,
                 image: this.state.teacher.img
-            }
+            },
+            info: ''
         })
         // check if 'name' is empty write error
         if (!this.state.teacher.name) {
@@ -67,9 +69,11 @@ class FormTeacher extends Component {
             this.state.errors.course = ''
         }
         const teacher = this.state.teacher
+        // check errors exist
         if (!this.state.errors.name &&
             !this.state.errors.course &&
             (!this.state.errors.course && !this.state.errors.name)) {
+            // check edit or add teacher
             if (!this.state.edit) {
                 API.post('teacher', {
                     name: teacher.name,
@@ -78,11 +82,13 @@ class FormTeacher extends Component {
                 })
                     .then(function (response) {
                         console.log(response)
-                        alert('Teacher created!')
                     })
                     .catch(function (error) {
                         console.log(error)
                     })
+                this.setState({
+                    info: 'Teacher created!'
+                })
             } else {
                 API.put(`editteacher/${this.state.teacher._id}`,
                     {
@@ -93,11 +99,14 @@ class FormTeacher extends Component {
                     .then(res => {
                         console.log(res)
                         console.log(res.data)
-                        alert('Teacher edited!')
                     })
                     .catch(errors => console.log(errors))
+                this.setState({
+                    info: 'Teacher edited!'
+                })
             }
         }
+        // resetting data
         if (!this.state.edit) {
             this.setState({
                 teacher: {
@@ -110,7 +119,8 @@ class FormTeacher extends Component {
     }
 
     componentWillMount() {
-        if (this.props.match.params.id){
+        // if edit get data of teacher
+        if (this.props.match.params.id) {
             API.get(`teacher/${this.props.match.params.id}`)
                 .then(function (response) {
                     this.setState({
@@ -158,6 +168,9 @@ class FormTeacher extends Component {
                         value='Save'
                         onClick={this.handleSubmit}
                     />
+                    <div className='info'>
+                        {this.state.info}
+                    </div>
                 </form>
             </div>
         )
