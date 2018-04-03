@@ -142,28 +142,30 @@ class FormTeacher extends Component {
             <div>Teacher form
                 <form>
                     <input
-                        className='required'
+                        className='required form-control'
                         name='name'
                         type='text'
                         placeholder='Name'
                         value={this.state.teacher.name}
                         onChange={this.dataChange}
                     />
-                    <div className='errors'>
+                    <div className='error-notification'>
                         {this.state.errors.name}
                     </div>
-
                     <select name='course'
                             value={this.state.teacher.course}
-                            onChange={this.dataChange}>
+                            onChange={this.dataChange}
+                            className='custom-select col-lg-4'
+                    >
                         {this.state.courses.map(function (course, key) {
                             return (<option key={key} value={course}>{course}</option>)
                         })}
                     </select>
-                    <div className='errors'>
+                    <div className='error-notification'>
                         {this.state.errors.course}
                     </div>
                     <input
+                        className='btn btn-primary'
                         type='submit'
                         value='Save'
                         onClick={this.handleSubmit}
