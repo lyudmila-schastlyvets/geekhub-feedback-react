@@ -59,7 +59,7 @@ class TeachersList extends Component {
         return (
             <div>
                 <h1>Teachers</h1>
-                <Link to='/admin/form_teacher'>Add teacher</Link>
+                <Link to='/admin/add_teacher'>Add teacher</Link>
                 <div id='teachers' className='teachers-list'>
                     <ReactTable
                         data={this.state.teachers}
@@ -68,14 +68,19 @@ class TeachersList extends Component {
                                 Header: 'Name',
                                 accessor: 'name',
                                 Cell: row => (
-                                    <a onClick={() => this.props.history.push(`/admin/teacher/${row.original._id}`)}>{row.value}</a>
+                                    <a onClick={() => this.props.history.push(
+                                            `/admin/teacher/${row.original._id}`
+                                    )}>{row.value}</a>
                                 )
                             },
                             {
                                 Header: 'Image',
                                 accessor: 'image',
                                 Cell: row => (
-                                    <img width='200px' src={row.value ? row.value : logo} alt={row.original.name}/>
+                                    <img
+                                        width='200px' src={row.value ? row.value : logo}
+                                        alt={row.original.name}
+                                    />
                                 )
                             },
                             {
@@ -85,15 +90,19 @@ class TeachersList extends Component {
                             {
                                 Header: '',
                                 Cell: row => (
-                                    <Link
-                                        //onClick={() => this.handleDelete(row.original)}
-                                        to={`/admin/form_teacher/${row.original._id}`}>Edit</Link>
+                                    <a onClick={() => this.props.history.push(
+                                        `/admin/edit_teacher/${row.original._id}`
+                                    )}>
+                                        Edit
+                                    </a>
                                 ),
                             },
                             {
                                 Header: '',
                                 Cell: row => (
-                                    <a onClick={() => this.handleDelete(row.original)}>Delete</a>
+                                    <a onClick={() => this.handleDelete(row.original)}>
+                                        Delete
+                                    </a>
                                 )
                             }
                         ]}

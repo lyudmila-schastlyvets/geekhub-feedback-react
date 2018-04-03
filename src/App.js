@@ -34,8 +34,9 @@ class App extends Component {
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute path='/admin/feedback' component={Feedback} />
             <PrivateRoute path='/admin/teachers' component={Teachers} />
-            <PrivateRoute path='/admin/form_teacher' component={FormTeacher} />
-            <PrivateRoute path='/admin/teacher/:id' render={(props) => <Teacher {...props} />} />
+            <PrivateRoute path='/admin/edit_teacher/:id' component={FormTeacher} />
+            <PrivateRoute path='/admin/add_teacher' component={FormTeacher} />
+            <PrivateRoute path='/admin/teacher/:id' component={Teacher} />
             <PrivateRoute path='/admin/sending_letters' component={SendingLetters} />
             <Route path='/admin/login' component={Login} />
             <Route path='/feedback/:id' component={Comments}/>
