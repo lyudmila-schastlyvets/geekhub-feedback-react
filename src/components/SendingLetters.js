@@ -70,12 +70,12 @@ class Login extends Component {
           this.setState({
             errorMessage: {
               errorEmails: 'Enter correct email(s)',
-              errorTeachers: localThis.state.errorMessage.errorTeachers
+              errorTeachers: this.state.errorMessage.errorTeachers
             }
           })
           return
         } else {
-          localThis.state.emailsArray.push(el.toString())
+          this.state.emailsArray.push(el.toString())
         }
       }
     }.bind(this))
