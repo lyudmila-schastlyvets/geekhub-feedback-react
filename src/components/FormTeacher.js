@@ -168,7 +168,7 @@ class FormTeacher extends Component {
                         value='Save'
                         onClick={this.handleSubmit}
                     />
-                    <div className='info'>
+                    <div className='form-teacher-success'>
                         {this.state.info}
                     </div>
                 </form>
