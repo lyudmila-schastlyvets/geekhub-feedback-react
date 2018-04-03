@@ -5,7 +5,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import logo from '../images/teacher.png'
 
-class Teachers extends Component {
+class TeachersList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -30,11 +30,28 @@ class Teachers extends Component {
     }
 
     handleDelete(event) {
-        API.delete(`teacher/${event._id}`)
-            .then(res => {
-                console.log(res)
-                console.log(res.data)
-            })
+        if (window.confirm('Do you want delete ' + event.name + '?')) {
+            API.get(`removeteacher/${event._id}`)
+                .then(res => {
+                    console.log(res)
+                    console.log(res.data)
+                })
+                .catch(function (error) {
+                        console.log('error ' + error)
+                    }
+                )
+            API.get('teacher')
+                .then(function (response) {
+                    this.setState({
+                        teachers: response.data
+                    })
+                }.bind(this))
+
+                .catch(function (error) {
+                        console.log('error ' + error)
+                    }
+                )
+        }
     }
 
     render() {
@@ -51,14 +68,19 @@ class Teachers extends Component {
                                 Header: 'Name',
                                 accessor: 'name',
                                 Cell: row => (
-                                    <a onClick={() => this.props.history.push('/admin/teacher/:id')}>{row.value}</a>
+                                    <a onClick={() => this.props.history.push(
+                                            `/admin/teacher/${row.original._id}`
+                                    )}>{row.value}</a>
                                 )
                             },
                             {
                                 Header: 'Image',
                                 accessor: 'image',
                                 Cell: row => (
-                                    <img width='200px' src={row.value ? row.value : logo} alt={row.original.name}/>
+                                    <img
+                                        width='200px' src={row.value ? row.value : logo}
+                                        alt={row.original.name}
+                                    />
                                 )
                             },
                             {
@@ -68,7 +90,19 @@ class Teachers extends Component {
                             {
                                 Header: '',
                                 Cell: row => (
-                                        <a onClick={() => this.handleDelete(row.original)}>Delete</a>
+                                    <a onClick={() => this.props.history.push(
+                                        `/admin/edit_teacher/${row.original._id}`
+                                    )}>
+                                        Edit
+                                    </a>
+                                ),
+                            },
+                            {
+                                Header: '',
+                                Cell: row => (
+                                    <a onClick={() => this.handleDelete(row.original)}>
+                                        Delete
+                                    </a>
                                 )
                             }
                         ]}
@@ -82,4 +116,4 @@ class Teachers extends Component {
     }
 }
 
-export default withRouter(Teachers)
+export default withRouter(TeachersList)

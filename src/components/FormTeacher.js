@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import update from 'immutability-helper'
 import API from '../api'
 
-class addTeacher extends Component {
+class FormTeacher extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -29,7 +29,8 @@ class addTeacher extends Component {
                 'Advanced Android',
                 'Project Management',
                 'Motion Graphics'
-            ]
+            ],
+            edit: false
         }
 
         this.dataChange = this.dataChange.bind(this)
@@ -69,23 +70,59 @@ class addTeacher extends Component {
         if (!this.state.errors.name &&
             !this.state.errors.course &&
             (!this.state.errors.course && !this.state.errors.name)) {
-            API.post('teacher', {
-                name: teacher.name,
-                course: teacher.course,
-                image: teacher.image
-            })
-                .then(function (response) {
-                    console.log(response)
+            if (!this.state.edit) {
+                API.post('teacher', {
+                    name: teacher.name,
+                    course: teacher.course,
+                    image: teacher.image
                 })
-                .catch(function (error) {
-                    console.log(error)
-                })
+                    .then(function (response) {
+                        console.log(response)
+                        alert('Teacher created!')
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            } else {
+                API.put(`editteacher/${this.state.teacher._id}`,
+                    {
+                        name: teacher.name,
+                        course: teacher.course,
+                        image: teacher.image
+                    })
+                    .then(res => {
+                        console.log(res)
+                        console.log(res.data)
+                        alert('Teacher edited!')
+                    })
+                    .catch(errors => console.log(errors))
+            }
+        }
+        if (!this.state.edit) {
             this.setState({
                 teacher: {
                     name: '',
                     course: '',
                     image: ''
                 }
+            })
+        }
+    }
+
+    componentWillMount() {
+        if (this.props.match.params.id){
+            API.get(`teacher/${this.props.match.params.id}`)
+                .then(function (response) {
+                    this.setState({
+                        teacher: response.data
+                    })
+
+                }.bind(this))
+                .catch(function (error) {
+                    console.log(error)
+                })
+            this.setState({
+                edit: true
             })
         }
     }
@@ -105,12 +142,7 @@ class addTeacher extends Component {
                     <div className='errors'>
                         {this.state.errors.name}
                     </div>
-                    <input
-                        name='image'
-                        type='file'
-                        value={this.state.teacher.image}
-                        onChange={this.dataChange}
-                    /><br/>
+
                     <select name='course'
                             value={this.state.teacher.course}
                             onChange={this.dataChange}>
@@ -132,4 +164,4 @@ class addTeacher extends Component {
     }
 }
 
-export default withRouter(addTeacher)
+export default withRouter(FormTeacher)

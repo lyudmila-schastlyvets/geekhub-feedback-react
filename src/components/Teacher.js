@@ -11,9 +11,8 @@ class Teacher extends Component {
         }
     }
 
-    componentDidMount(props) {
-        console.log(props.match.params.id)
-        API.get(`teacher/${props.match.params.id}`)
+    componentDidMount() {
+        API.get(`teacher/${this.props.match.params.id}`)
             .then(function (response) {
                 this.setState({
                     teacher: response.data
@@ -24,7 +23,7 @@ class Teacher extends Component {
                     console.log('error ' + error)
                 }
             )
-        API.get(`comments/${props.match.params.id}`)
+        API.get(`comments/${this.props.match.params.id}`)
             .then(function (response) {
                 this.setState({
                     comments: response.data
