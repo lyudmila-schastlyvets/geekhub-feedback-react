@@ -8,7 +8,9 @@ class Teacher extends Component {
         super(props)
         this.state = {
             teacher: {},
-            comments: []
+            comments: {
+                result: []
+            }
         }
     }
 
@@ -48,7 +50,13 @@ class Teacher extends Component {
                     />
                     <p>{this.state.teacher.course}</p>
                 </div>
-                <div className='comments'>{this.state.comments}</div>
+                <div className='comments'>
+                    <h3>Feedback</h3>
+                    <ul>{this.state.comments.result.map(function (comment, key) {
+                        return (<li key={key}>{comment.content}</li>)
+                    })}
+                    </ul>
+                </div>
             </div>
         )
     }

@@ -155,7 +155,7 @@ class FormTeacher extends Component {
                     <select name='course'
                             value={this.state.teacher.course}
                             onChange={this.dataChange}
-                            className='custom-select col-lg-4'
+                            className='custom-select'
                     >
                         {this.state.courses.map(function (course, key) {
                             return (<option key={key} value={course}>{course}</option>)
