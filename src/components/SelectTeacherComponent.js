@@ -10,22 +10,27 @@ class SelectTeachersComponent extends Component {
     }
 
     this.addSelectFunction = this.addSelectFunction.bind(this)
+    this.selectChange = this.selectChange.bind(this)
+  }
+
+  selectChange(e) {
+    this.props.handleSelectChange(e.target.value, e.target.id)
   }
 
   addSelectFunction(e) {
     let teachers = this.props.teachers
-    let handleSelectChange = this.props.handleSelectChange
     e.preventDefault()
     this.setState({
       count: this.state.count + 1
     })
     this.state.selects.push(
       <select
-      name="teacher"
-      id={this.state.count + ' teacher_select'}
-      className='custom-select col-lg-4'
-      onChange={handleSelectChange}
-    >
+        name="teacher"
+        id={this.state.count}
+        className='custom-select col-lg-4'
+        onChange={this.selectChange}
+      >
+        <option value="0">Choose the teacher</option>
       {teachers.map((teacher) => (
         <option key={teacher._id}
                 value={teacher._id}>{teacher.name}</option>)
