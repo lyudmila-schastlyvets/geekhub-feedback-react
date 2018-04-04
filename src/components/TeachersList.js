@@ -15,25 +15,12 @@ class TeachersList extends Component {
             teachers: [],
             isShowingModal: false
         }
-
-        this.handleDelete = this.handleDelete.bind(this)
     }
 
     handleClick = () => this.setState({isShowingModal: true})
     handleClose = () => {
         this.setState({isShowingModal: false})
-        // update teacher state
-        API.get('teacher')
-            .then(function (response) {
-                this.setState({
-                    teachers: response.data
-                })
-            }.bind(this))
-
-            .catch(function (error) {
-                    console.log('error ' + error)
-                }
-            )
+        this.componentDidMount()
     }
 
     componentDidMount() {
@@ -43,37 +30,10 @@ class TeachersList extends Component {
                     teachers: response.data
                 })
             }.bind(this))
-
             .catch(function (error) {
                     console.log('error ' + error)
                 }
             )
-    }
-
-    handleDelete(event) {
-        if (window.confirm('Do you want delete ' + event.name + '?')) {
-            API.get(`removeteacher/${event._id}`)
-                .then(res => {
-                    console.log(res)
-                    console.log(res.data)
-                })
-                .catch(function (error) {
-                        console.log('error ' + error)
-                    }
-                )
-            // update teacher state after delete
-            API.get('teacher')
-                .then(function (response) {
-                    this.setState({
-                        teachers: response.data
-                    })
-                }.bind(this))
-
-                .catch(function (error) {
-                        console.log('error ' + error)
-                    }
-                )
-        }
     }
 
     render() {
@@ -149,15 +109,6 @@ class TeachersList extends Component {
                                         Edit
                                     </a>
                                 ),
-                            },
-                            {
-                                Header: '',
-                                Cell: row => (
-                                    <a className='btn btn-primary color-btn'
-                                       onClick={() => this.handleDelete(row.original)}>
-                                        Delete
-                                    </a>
-                                )
                             }
                         ]}
                         pageSize={(item < 10) ? item : 10}
