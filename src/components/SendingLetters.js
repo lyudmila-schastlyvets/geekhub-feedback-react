@@ -88,7 +88,6 @@ class SendingLetters extends Component {
       })
 
     // Page refresh TODO
-    window.location.reload();
   }
 
   handleSelectChange(value, id) {
