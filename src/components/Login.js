@@ -8,7 +8,8 @@ class Login extends Component {
     this.state = {
       name: '',
       pass: '',
-      loggedIn: localStorage.getItem('loggedIn')
+      loggedIn: localStorage.getItem('loggedIn'),
+      errorMessage: ''
     }
 
     this.nameChange = this.nameChange.bind(this)
@@ -31,7 +32,12 @@ class Login extends Component {
         if (response.data) {
           localStorage.setItem('loggedIn', 'true')
           this.setState({
-            loggedIn: 'true'
+            loggedIn: 'true',
+            errorMessage: ''
+          })
+        } else {
+          this.setState({
+            errorMessage: 'Please check entered data'
           })
         }
       }.bind(this))
@@ -63,6 +69,8 @@ class Login extends Component {
               onChange={this.passChange}
               required='required'
             />
+            {this.state.errorMessage ? <p className='error-notification'>
+              {this.state.errorMessage}</p> : ''}
             <input
               type='submit'
               value='Submit'
