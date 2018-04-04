@@ -14,16 +14,17 @@ class Feedback extends Component {
   }
   render () {
     const data = [
-      {
-        comment: 'Comment will be here',
-        date: (new Date).toString(),
-        teacher: 'Kina'
-      },
-      {
-        comment: 'Text is here',
-        date: (new Date).toString(),
-        teacher: 'Kirill'
-      }]
+      // {
+      //   comment: 'Comment will be here',
+      //   date: (new Date).toString(),
+      //   teacher: 'Kina'
+      // },
+      // {
+      //   comment: 'Text is here',
+      //   date: (new Date).toString(),
+      //   teacher: 'Kirill'
+      // }
+    ]
 
     const columns = [{
         Header: 'Comment',
@@ -47,6 +48,7 @@ class Feedback extends Component {
             pageSize={(items < 10) ? items : 10}
             className='-striped -highlight'
             showPageSizeOptions={false}
+            noDataText='No comments were found.'
           />
         </div>
       </div>
