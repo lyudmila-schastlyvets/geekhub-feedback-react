@@ -63,11 +63,24 @@ nav {
   padding: 0 15px;
 }
 
-.login-form > * {
+.login-form > *,
+.teacher-form > * {
   margin-bottom: 15px;
 }
 
 .login-form input[type="submit"] {
   width: 120px;
   align-self: center;
+}
+
+.form-teacher-success {
+  color: green;
+}
+
+.narcissus_17w311v {
+  padding: 30px 50px !important;
+}
+
+a.color-btn {
+  color: white !important;
 }

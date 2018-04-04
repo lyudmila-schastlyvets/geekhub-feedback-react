@@ -112,7 +112,9 @@ class TeachersList extends Component {
                                 Header: 'Name',
                                 accessor: 'name',
                                 Cell: row => (
-                                    <a onClick={() => this.props.history.push(
+                                    <a
+                                        href={`/admin/teacher/${row.original._id}`}
+                                        onClick={() => this.props.history.push(
                                             `/admin/teacher/${row.original._id}`
                                     )}>{row.value}</a>
                                 )
@@ -136,7 +138,7 @@ class TeachersList extends Component {
                             {
                                 Header: '',
                                 Cell: row => (
-                                    <a className='btn btn-primary'
+                                    <a className='btn btn-primary color-btn'
                                        onClick={() => {
                                       this.props.history.push(
                                         `/admin/teachers/edit_teacher/${row.original._id}`
@@ -151,7 +153,7 @@ class TeachersList extends Component {
                             {
                                 Header: '',
                                 Cell: row => (
-                                    <a className='btn btn-primary'
+                                    <a className='btn btn-primary color-btn'
                                        onClick={() => this.handleDelete(row.original)}>
                                         Delete
                                     </a>
