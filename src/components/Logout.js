@@ -19,11 +19,10 @@ class Logout extends Component {
   }
 
   render() {
-    console.log(this.state.loggedIn)
     return (
       this.state.loggedIn !== 'true' ? <Redirect to='/admin/login'/> :
       <button
-        className="btn btn-primary"
+        className='btn btn-primary'
         onClick={this.logoutFunc}>
         Logout
       </button>

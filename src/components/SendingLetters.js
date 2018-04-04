@@ -2,18 +2,17 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import SelectTeacherComponent from './SelectTeacherComponent'
 import { EMAIL_VALIDATION_REGEX } from './../constants'
-import API from "../api";
+import API from "../api"
+import update from 'immutability-helper'
 
-class Login extends Component {
+class SendingLetters extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loggedIn: localStorage.getItem('loggedIn'),
       teachers: [],
       chosenTeachers: [],
       emails: '',
-      errorMessage: {},
-      emailsArray: []
+      errorMessage: {}
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -21,73 +20,65 @@ class Login extends Component {
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
   }
 
-  componentDidMount () {
-    let localThis = this;
+  componentWillMount () {
     API.get('teacher')
       .then(function (response) {
-        localThis.setState({
+        this.setState({
           teachers: response.data
         })
-      })
+      }.bind(this))
       .catch(function (error) {
-          console.log('error ' + error);
+          console.log('error ' + error)
         }
-      );
+      )
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    let localThis = this;
-    this.setState({
-      errorMessage: {
-        errorEmails: '',
-        errorTeachers: ''
-      }
-    })
+    // Filter selected results. Remove "Choose teacher" values and leave only unique values.
+    let filteredChosenTeachers = this.state.chosenTeachers.filter((el) =>  el !== '0')
+    filteredChosenTeachers = [...new Set(filteredChosenTeachers)]
+    // Init variable for error messages.
+    let errors = {}
+    // Init variable for emails.
+    let emailsArray = []
+    // Check if the teachers were chosen.
+    if (!filteredChosenTeachers.length > 0) {
+      errors['errorTeachers'] = 'Please choose the teacher'
+    }
+    // Check if emails were entered.
     if (this.state.emails === '') {
-      localThis.setState({
-        errorMessage: {
-          errorEmails: 'Email address is required',
-          errorTeachers: this.state.errorMessage.errorTeachers
-        }
+      errors['errorEmails'] = 'Email address is required'
+      this.setState({
+        errorMessage: errors
       })
       return
     }
-    if (!localThis.state.chosenTeachers.length > 0) {
-      localThis.setState({
-        errorMessage: {
-          errorEmails: this.state.errorMessage.errorEmails,
-          errorTeachers: 'Please choose the teacher'
-        }
-      })
-      return
-    }
+    // Validation entered emails.
     let str = this.state.emails.split(', ');
 
     str.forEach(function (el) {
-      if (localThis.state.errorMessage.errorEmails) {
+      if (errors.errorEmails) {
         return
       } else {
         if (!EMAIL_VALIDATION_REGEX.test(el)) {
-          localThis.setState({
-            errorMessage: {
-              errorEmails: 'Enter correct email(s)',
-              errorTeachers: localThis.state.errorMessage.errorTeachers
-            }
-          })
-          return
+          errors['errorEmails'] = 'Enter correct email(s)'
         } else {
-          localThis.state.emailsArray.push(el.toString())
+          emailsArray.push(el.toString())
         }
       }
     })
-    console.log({
-      "emails": this.state.emailsArray,
-      "teachers": this.state.chosenTeachers
-    })
+    // Show errors after custom validation
+    if (errors.errorEmails || errors.errorTeachers) {
+      this.setState({
+        errorMessage: errors
+      })
+      return
+    }
+    // Send data top API
     API.post('sendmail', {
-      "emails": this.state.emailsArray,
-      "teachers": this.state.chosenTeachers
+      "emails": emailsArray,
+      "teachers": filteredChosenTeachers
     })
       .then(function (res) {
         console.log(res)
@@ -95,18 +86,17 @@ class Login extends Component {
       .catch(function (err) {
         console.log(err)
       })
-    this.setState({
-      teachers: [],
-      chosenTeachers: [],
-      emails: '',
-      errorMessage: {},
-      emailsArray: []
-    })
+
+    // Page refresh TODO
+    window.location.reload();
   }
 
-  handleSelectChange(e) {
-    if ( this.state.chosenTeachers.indexOf(e.target.value) === -1)
-      this.state.chosenTeachers.push(e.target.value)
+  handleSelectChange(value, id) {
+    this.setState({
+      chosenTeachers: update(this.state.chosenTeachers, {
+        [id]: {$set: value}
+      })
+    })
   }
 
   handleTextareaChange(e) {
@@ -120,20 +110,20 @@ class Login extends Component {
       <div>
         <h1>Sending Letters</h1>
         <div className='form container'>
-          <form className="">
+          <form>
             <SelectTeacherComponent
               count={this.state.count}
               teachers={this.state.teachers}
               handleSelectChange={this.handleSelectChange}
             />
-            <div className="single-form-row row justify-content-md-center">
+            <div className='single-form-row row justify-content-md-center'>
               {this.state.errorMessage.errorTeachers ? <p className='col-12 error-notification'>
                 {this.state.errorMessage.errorTeachers}</p> : ''}
               <textarea
                 className='form-control col-lg-4'
                 name='pass'
                 placeholder='Enter email addresses separated by commas'
-                rows='3'
+                rows='6'
                 onChange={this.handleTextareaChange}
               />
               {this.state.errorMessage.errorEmails ? <p className='col-12 error-notification'>
@@ -152,4 +142,4 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login)
+export default withRouter(SendingLetters)

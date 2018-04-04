@@ -4,7 +4,6 @@ import API from './../api'
 import CommentForm from './CommentForm'
 import update from 'immutability-helper'
 
-
 class Comments extends Component {
   constructor(props) {
     super(props)
@@ -20,25 +19,16 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    // API.get('teacher' + this.props.match.params.id)
-    // console.log(this.props.match.params.id)
-    const teachers = [
-      {
-        name: "Kina",
-        course: "JS",
-        id: "5ac1e517d095760004605a11",
-        image: ""
-      },
-      {
-        name: "Kirill ",
-        course: "JS",
-        id: "5ac2233bf25dff000406065a",
-        image: ""
-      }
-    ]
-    this.setState({
-      teachers: teachers
-    })
+    API.get('feedback/' + this.props.match.params.id)
+      .then(function (res) {
+        this.setState({
+          teachers: res.data.result,
+          commentator: res.data.id
+        })
+      }.bind(this))
+      .catch(function (err) {
+        console.log(err)
+      })
   }
 
   changeComponent(message, teacherID, index) {
@@ -60,7 +50,6 @@ class Comments extends Component {
       errorMessage: ''
     })
     if (this.state.comments.length === this.state.commentFormsNumber) {
-      console.log(this.state.comments)
       this.state.comments.map((comment) => {
         API.post('setcomment/', {
           "forTeacher": comment.teacherID,
@@ -83,14 +72,14 @@ class Comments extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className='container'>
         <h1>Comment Page Heading</h1>
-        <p>Som text will be here</p>
-        <div className="row">
+        <p>Some text will be here</p>
+        <div className='row'>
           {this.state.teachers.map((teacher, index) => {
               this.state.commentFormsNumber = index + 1
               return <CommentForm
-                key={teacher.id}
+                key={teacher._id}
                 teacher={teacher}
                 change={this.changeComponent}
                 index={index}
@@ -98,9 +87,9 @@ class Comments extends Component {
             }
           )}
         </div>
-        {this.state.errorMessage !== '' ? <p>{this.state.errorMessage}</p> : ''}
+        {this.state.errorMessage !== '' ? <p className='error-notification'>{this.state.errorMessage}</p> : ''}
         <button
-          className="btn btn-primary"
+          className='btn btn-primary'
           onClick={this.commentsSubmit}
         >Leave Comment</button>
       </div>

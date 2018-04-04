@@ -9,42 +9,33 @@ class CommentForm extends Component {
       message: ''
     }
 
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-
-  }
-
   handleTextareaChange(e) {
-    this.props.change(e.target.value, this.props.teacher.id, this.props.index)
+    this.props.change(e.target.value, this.props.teacher._id, this.props.index)
   }
 
   render() {
     return (
-      <div className="col-md-6">
-        <div className="info">
-          <div className="image">
-            <img src={this.props.teacher.image || logo} alt=""/>
+      <div className='col-md-6 single-comment-box'>
+        <div className='info'>
+          <div className='image'>
+            <img src={this.props.teacher.image || logo} alt=''/>
           </div>
-          <div className="info-data">
+          <div className='info-data'>
             <h2>{this.props.teacher.name}</h2>
             <h3>{this.props.teacher.course}</h3>
           </div>
         </div>
-
-        <div className=' '>
+        <div>
           <textarea
-            className='form-control'
+            className='form-control mg-bottom'
             name='pass'
             placeholder='Please be free to leave the truth comment'
             rows='6'
             onChange={this.handleTextareaChange}
           />
-          <p className='error-notification'>
-          </p>
         </div>
       </div>
     )
