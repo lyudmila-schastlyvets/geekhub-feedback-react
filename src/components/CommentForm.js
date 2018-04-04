@@ -18,12 +18,12 @@ class CommentForm extends Component {
 
   render() {
     return (
-      <div className="col-md-6">
-        <div className="info">
-          <div className="image">
-            <img src={this.props.teacher.image || logo} alt=""/>
+      <div className='col-md-6'>
+        <div className='info'>
+          <div className='image'>
+            <img src={this.props.teacher.image || logo} alt=''/>
           </div>
-          <div className="info-data">
+          <div className='info-data'>
             <h2>{this.props.teacher.name}</h2>
             <h3>{this.props.teacher.course}</h3>
           </div>

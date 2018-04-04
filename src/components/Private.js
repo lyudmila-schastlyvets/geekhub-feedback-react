@@ -5,9 +5,9 @@ import Logout from './Logout'
 const PrivateRoute = ({component: Component, ...rest}) => {
   const loggedIn = localStorage.getItem('loggedIn')
   return (
-    <div className="test">
+    <div>
       {loggedIn === 'true' ? <Route {...rest} render={props => (
-        <div className="content">
+        <div className='content'>
           <nav>
             <Link to='/admin/feedback'>Feedback</Link>
             <Link to='/admin/teachers'>Teachers</Link>

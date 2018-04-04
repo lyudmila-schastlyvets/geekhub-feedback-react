@@ -58,7 +58,7 @@ class Login extends Component {
             <input
               className='form-control'
               name='pass'
-              type='text'
+              type='password'
               placeholder='Password'
               onChange={this.passChange}
               required='required'
@@ -67,7 +67,7 @@ class Login extends Component {
               type='submit'
               value='Submit'
               onClick={this.handleSubmit}
-              className="btn btn-primary"
+              className='btn btn-primary'
             />
           </form>
         </div>

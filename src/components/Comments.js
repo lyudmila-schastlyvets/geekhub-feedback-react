@@ -50,7 +50,6 @@ class Comments extends Component {
       errorMessage: ''
     })
     if (this.state.comments.length === this.state.commentFormsNumber) {
-      console.log(this.state.comments)
       this.state.comments.map((comment) => {
         API.post('setcomment/', {
           "forTeacher": comment.teacherID,
@@ -73,10 +72,10 @@ class Comments extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className='container'>
         <h1>Comment Page Heading</h1>
         <p>Some text will be here</p>
-        <div className="row">
+        <div className='row'>
           {this.state.teachers.map((teacher, index) => {
               this.state.commentFormsNumber = index + 1
               return <CommentForm
@@ -90,7 +89,7 @@ class Comments extends Component {
         </div>
         {this.state.errorMessage !== '' ? <p className='error-notification'>{this.state.errorMessage}</p> : ''}
         <button
-          className="btn btn-primary"
+          className='btn btn-primary'
           onClick={this.commentsSubmit}
         >Leave Comment</button>
       </div>

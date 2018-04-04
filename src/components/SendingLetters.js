@@ -67,7 +67,7 @@ class SendingLetters extends Component {
           emailsArray.push(el.toString())
         }
       }
-    }.bind(this))
+    })
     // Show errors after custom validation
     if (errors.errorEmails || errors.errorTeachers) {
       this.setState({
@@ -110,13 +110,13 @@ class SendingLetters extends Component {
       <div>
         <h1>Sending Letters</h1>
         <div className='form container'>
-          <form className="">
+          <form>
             <SelectTeacherComponent
               count={this.state.count}
               teachers={this.state.teachers}
               handleSelectChange={this.handleSelectChange}
             />
-            <div className="single-form-row row justify-content-md-center">
+            <div className='single-form-row row justify-content-md-center'>
               {this.state.errorMessage.errorTeachers ? <p className='col-12 error-notification'>
                 {this.state.errorMessage.errorTeachers}</p> : ''}
               <textarea
