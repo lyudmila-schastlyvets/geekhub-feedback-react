@@ -11,7 +11,6 @@ import Teachers from './components/TeachersList'
 import SendingLetters from './components/SendingLetters'
 import Login from './components/Login'
 import Comments from './components/Comments'
-import addTeacher from './components/FormTeacher'
 import Teacher from './components/Teacher'
 
 class App extends Component {
@@ -34,8 +33,7 @@ class App extends Component {
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute path='/admin/feedback' component={Feedback} />
             <PrivateRoute path='/admin/teachers' component={Teachers} />
-            <PrivateRoute path='/admin/add_teacher' component={addTeacher} />
-            <PrivateRoute path='/admin/teacher' component={Teacher} />
+            <PrivateRoute path='/admin/teacher/:id' component={Teacher} />
             <PrivateRoute path='/admin/sending_letters' component={SendingLetters} />
             <Route path='/admin/login' component={Login} />
             <Route path='/feedback/:id' component={Comments}/>

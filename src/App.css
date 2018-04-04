@@ -63,7 +63,8 @@ nav {
   padding: 0 15px;
 }
 
-.login-form > * {
+.login-form > *,
+.teacher-form > * {
   margin-bottom: 15px;
 }
 
@@ -72,8 +73,35 @@ nav {
   align-self: center;
 }
 
+.form-teacher-success {
+  color: green;
+}
+
+.narcissus_17w311v {
+  padding: 30px 50px !important;
+}
+
+a.color-btn {
+  color: white !important;
+}
+
+.visible {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.teacher-link {
+  color: #007bff!important;
+}
+
+.teacher-link:hover {
+  text-decoration: underline!important;
+}
 .single-comment-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
