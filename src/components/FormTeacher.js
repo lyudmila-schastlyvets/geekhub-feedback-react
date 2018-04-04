@@ -10,7 +10,8 @@ class FormTeacher extends Component {
             teacher: {
                 name: '',
                 course: '',
-                image: ''
+                image: '',
+                _id: ''
             },
             errors: {
                 name: '',
@@ -30,7 +31,8 @@ class FormTeacher extends Component {
                 'Project Management',
                 'Motion Graphics'
             ],
-            edit: false
+            edit: false,
+            info: ''
         }
 
         this.dataChange = this.dataChange.bind(this)
@@ -51,8 +53,10 @@ class FormTeacher extends Component {
             teacher: {
                 name: this.state.teacher.name,
                 course: this.state.teacher.course,
-                image: this.state.teacher.img
-            }
+                image: this.state.teacher.img,
+                _id: this.state.teacher._id
+            },
+            info: ''
         })
         // check if 'name' is empty write error
         if (!this.state.teacher.name) {
@@ -67,9 +71,11 @@ class FormTeacher extends Component {
             this.state.errors.course = ''
         }
         const teacher = this.state.teacher
+        // check errors exist
         if (!this.state.errors.name &&
             !this.state.errors.course &&
             (!this.state.errors.course && !this.state.errors.name)) {
+            // check edit or add teacher
             if (!this.state.edit) {
                 API.post('teacher', {
                     name: teacher.name,
@@ -78,11 +84,13 @@ class FormTeacher extends Component {
                 })
                     .then(function (response) {
                         console.log(response)
-                        alert('Teacher created!')
                     })
                     .catch(function (error) {
                         console.log(error)
                     })
+                this.setState({
+                    info: 'Teacher created!'
+                })
             } else {
                 API.put(`editteacher/${this.state.teacher._id}`,
                     {
@@ -93,11 +101,14 @@ class FormTeacher extends Component {
                     .then(res => {
                         console.log(res)
                         console.log(res.data)
-                        alert('Teacher edited!')
                     })
                     .catch(errors => console.log(errors))
+                this.setState({
+                    info: 'Teacher edited!'
+                })
             }
         }
+        // resetting data
         if (!this.state.edit) {
             this.setState({
                 teacher: {
@@ -109,8 +120,9 @@ class FormTeacher extends Component {
         }
     }
 
-    componentWillMount() {
-        if (this.props.match.params.id){
+    componentDidMount() {
+        // if edit get data of teacher
+        if (this.props.match.params.id) {
             API.get(`teacher/${this.props.match.params.id}`)
                 .then(function (response) {
                     this.setState({
@@ -129,35 +141,41 @@ class FormTeacher extends Component {
 
     render() {
         return (
-            <div>Teacher form
-                <form>
+            <div>
+                <h3>Teacher form</h3>
+                <form className='teacher-form'>
                     <input
-                        className='required'
+                        className='required form-control'
                         name='name'
                         type='text'
                         placeholder='Name'
                         value={this.state.teacher.name}
                         onChange={this.dataChange}
                     />
-                    <div className='errors'>
+                    <div className='error-notification'>
                         {this.state.errors.name}
                     </div>
-
                     <select name='course'
                             value={this.state.teacher.course}
-                            onChange={this.dataChange}>
+                            onChange={this.dataChange}
+                            className='custom-select'
+                    >
                         {this.state.courses.map(function (course, key) {
                             return (<option key={key} value={course}>{course}</option>)
                         })}
                     </select>
-                    <div className='errors'>
+                    <div className='error-notification'>
                         {this.state.errors.course}
                     </div>
                     <input
+                        className='btn btn-primary'
                         type='submit'
                         value='Save'
                         onClick={this.handleSubmit}
                     />
+                    <div className='form-teacher-success'>
+                        {this.state.info}
+                    </div>
                 </form>
             </div>
         )
