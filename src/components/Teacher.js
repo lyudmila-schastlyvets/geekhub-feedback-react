@@ -12,7 +12,9 @@ class Teacher extends Component {
             teacher: {},
             comments: {
                 result: []
-            }
+            },
+            //for check loading data
+            loading: false
         }
     }
 
@@ -20,7 +22,8 @@ class Teacher extends Component {
         API.get(`teacher/${this.props.match.params.id}`)
             .then(function (response) {
                 this.setState({
-                    teacher: response.data
+                    teacher: response.data,
+                    loading: true
                 })
             }.bind(this))
 
@@ -44,7 +47,7 @@ class Teacher extends Component {
     render() {
         var item = this.state.comments.result.length
         return (
-            <div>
+            <div className={this.state.loading ? 'visible' : 'hide'}>
                 <div className='teacher-info'>
                     <h1>{this.state.teacher.name}</h1>
                     <img

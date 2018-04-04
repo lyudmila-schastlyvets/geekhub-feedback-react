@@ -113,7 +113,7 @@ class TeachersList extends Component {
                                 accessor: 'name',
                                 Cell: row => (
                                     <a
-                                        href={`/admin/teacher/${row.original._id}`}
+                                        className='teacher-link'
                                         onClick={() => this.props.history.push(
                                             `/admin/teacher/${row.original._id}`
                                     )}>{row.value}</a>
