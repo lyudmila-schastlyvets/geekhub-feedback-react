@@ -10,7 +10,8 @@ class FormTeacher extends Component {
             teacher: {
                 name: '',
                 course: '',
-                image: ''
+                image: '',
+                _id: ''
             },
             errors: {
                 name: '',
@@ -52,7 +53,8 @@ class FormTeacher extends Component {
             teacher: {
                 name: this.state.teacher.name,
                 course: this.state.teacher.course,
-                image: this.state.teacher.img
+                image: this.state.teacher.img,
+                _id: this.state.teacher._id
             },
             info: ''
         })
@@ -118,7 +120,7 @@ class FormTeacher extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // if edit get data of teacher
         if (this.props.match.params.id) {
             API.get(`teacher/${this.props.match.params.id}`)
