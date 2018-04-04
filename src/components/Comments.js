@@ -12,7 +12,7 @@ class Comments extends Component {
       teachers: [],
       comments: [],
       errorMessage: '',
-      wasSent: ''
+      wasSent: true
     }
 
     this.commentsSubmit = this.commentsSubmit.bind(this)
@@ -81,7 +81,7 @@ class Comments extends Component {
   render() {
     return (
       <div className='container'>
-        {!this.state.wasSent ? (
+        {this.state.wasSent ? (
             <div>
               <h1>Comment Page Heading</h1>
               <p>Some text will be here</p>
