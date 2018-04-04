@@ -73,6 +73,11 @@ nav {
   align-self: center;
 }
 
+.single-comment-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .form-teacher-success {
   color: green;
 }
@@ -99,9 +104,4 @@ a.color-btn {
 
 .teacher-link:hover {
   text-decoration: underline!important;
-}
-.single-comment-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
