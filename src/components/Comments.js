@@ -31,12 +31,13 @@ class Comments extends Component {
       })
   }
 
-  changeComponent(message, teacherID, index) {
+  changeComponent(message, teacher, index) {
     let test = update(this.state, {
       comments: {
         [index]: {
           $set: {
-            teacherID: teacherID,
+            teacherID: teacher._id,
+            name: teacher.name,
             message: message
           }
         }
@@ -54,6 +55,7 @@ class Comments extends Component {
         API.post('setcomment/', {
           "forTeacher": comment.teacherID,
           "content": comment.message,
+          "teacherName": comment.name,
           "date": new Date()
         })
           .then(function (res) {

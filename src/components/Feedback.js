@@ -7,34 +7,33 @@ import 'react-table/react-table.css'
 class Feedback extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      comments: []
+    }
 
   }
   componentDidMount() {
-    console.log(this.props)
+    API.get('commentslist/')
+      .then(function (response) {
+        this.setState({
+          comments: response.data
+        })
+      }.bind(this))
+      .catch(function (error) {
+          console.log('error ' + error)
+        }
+      )
   }
   render () {
-    const data = [
-      // {
-      //   comment: 'Comment will be here',
-      //   date: (new Date).toString(),
-      //   teacher: 'Kina'
-      // },
-      // {
-      //   comment: 'Text is here',
-      //   date: (new Date).toString(),
-      //   teacher: 'Kirill'
-      // }
-    ]
-
     const columns = [{
         Header: 'Comment',
-        accessor: 'comment'
+        accessor: 'content'
       }, {
         Header: 'Date',
         accessor: 'date'
       }, {
         Header: 'For teacher',
-        accessor: 'teacher'
+        accessor: 'teacherName'
       }
     ]
     const items = columns.length
@@ -43,7 +42,7 @@ class Feedback extends Component {
         <h1>Feedback</h1>
         <div id='comments'>
           <ReactTable
-            data={data}
+            data={this.state.comments}
             columns={columns}
             pageSize={(items < 10) ? items : 10}
             className='-striped -highlight'
