@@ -19,7 +19,7 @@ class Comments extends Component {
     this.changeComponent = this.changeComponent.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     API.get('feedback/' + this.props.match.params.id)
       .then(function (res) {
         this.setState({
