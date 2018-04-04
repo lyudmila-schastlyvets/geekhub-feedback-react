@@ -33,10 +33,16 @@ class Feedback extends Component {
         accessor: 'date'
       }, {
         Header: 'For teacher',
-        accessor: 'teacherName'
+        accessor: 'teacherName',
+        Cell: row => (
+          <a
+            className='teacher-link'
+            onClick={() => this.props.history.push(
+              `/admin/teacher/${row.original.forTeacher}`
+            )}>{row.value}</a>)
       }
     ]
-    const items = columns.length
+    const items = this.state.comments.length
     return (
       <div>
         <h1>Feedback</h1>
@@ -48,6 +54,7 @@ class Feedback extends Component {
             className='-striped -highlight'
             showPageSizeOptions={false}
             noDataText='No comments were found.'
+            minRows={10}
           />
         </div>
       </div>
