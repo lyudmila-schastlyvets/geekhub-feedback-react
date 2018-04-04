@@ -92,14 +92,14 @@ class TeachersList extends Component {
                     <ModalContainer onClose={this.handleClose}>
                         <ModalDialog onClose={this.handleClose}>
                             <div className='edit_teacher'>
-                            <Route
-                                path='/admin/teachers/edit_teacher/:id'
-                                render={FormTeacher} />
+                                <Route
+                                    path='/admin/teachers/edit_teacher/:id'
+                                    render={FormTeacher}/>
                             </div>
                             <div className='add_teacher'>
-                            <Route
-                                path='/admin/teachers/add_teacher'
-                                render={FormTeacher} />
+                                <Route
+                                    path='/admin/teachers/add_teacher'
+                                    render={FormTeacher}/>
                             </div>
                         </ModalDialog>
                     </ModalContainer>
@@ -116,7 +116,7 @@ class TeachersList extends Component {
                                         className='teacher-link'
                                         onClick={() => this.props.history.push(
                                             `/admin/teacher/${row.original._id}`
-                                    )}>{row.value}</a>
+                                        )}>{row.value}</a>
                                 )
                             },
                             {
@@ -140,12 +140,12 @@ class TeachersList extends Component {
                                 Cell: row => (
                                     <a className='btn btn-primary color-btn'
                                        onClick={() => {
-                                      this.props.history.push(
-                                        `/admin/teachers/edit_teacher/${row.original._id}`
-                                      )
-                                      this.handleClick()
-                                    }
-                                    }>
+                                           this.props.history.push(
+                                               `/admin/teachers/edit_teacher/${row.original._id}`
+                                           )
+                                           this.handleClick()
+                                       }
+                                       }>
                                         Edit
                                     </a>
                                 ),
