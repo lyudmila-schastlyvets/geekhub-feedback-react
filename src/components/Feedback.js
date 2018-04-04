@@ -30,7 +30,10 @@ class Feedback extends Component {
         accessor: 'content'
       }, {
         Header: 'Date',
-        accessor: 'date'
+        accessor: 'date',
+        Cell: row => (
+          <span>{new Date(row.original.date).toLocaleString()}</span>
+        )
       }, {
         Header: 'For teacher',
         accessor: 'teacherName',
