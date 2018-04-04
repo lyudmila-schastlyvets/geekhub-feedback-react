@@ -8,7 +8,6 @@ class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loggedIn: localStorage.getItem('loggedIn'),
       teachers: [],
       chosenTeachers: [],
       emails: '',
@@ -19,6 +18,7 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
+    this.addTeacherFunc = this.addTeacherFunc.bind(this)
   }
 
   componentDidMount () {
@@ -94,7 +94,6 @@ class Login extends Component {
         console.log(err)
       })
     this.setState({
-      teachers: [],
       chosenTeachers: [],
       emails: '',
       errorMessage: {},
@@ -113,6 +112,10 @@ class Login extends Component {
     })
   }
 
+  addTeacherFunc(teacher) {
+
+  }
+
   render() {
     return (
       <div>
@@ -123,6 +126,7 @@ class Login extends Component {
               count={this.state.count}
               teachers={this.state.teachers}
               handleSelectChange={this.handleSelectChange}
+              addTeacherFunc={this.addTeacherFunc}
             />
             <div className="single-form-row row justify-content-md-center">
               {this.state.errorMessage.errorTeachers ? <p className='col-12 error-notification'>
