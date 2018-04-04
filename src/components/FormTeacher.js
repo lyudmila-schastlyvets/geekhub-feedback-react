@@ -65,7 +65,7 @@ class FormTeacher extends Component {
             this.state.errors.name = ''
         }
         // check if 'course' is empty write error
-        if (!this.state.teacher.course) {
+        if (this.state.teacher.course === '0' || !this.state.teacher.course) {
             this.state.errors.course = 'Course is required'
         } else {
             this.state.errors.course = ''
@@ -109,7 +109,7 @@ class FormTeacher extends Component {
             }
         }
         // resetting data
-        if (!this.state.edit) {
+        if (this.state.info === 'Teacher created!') {
             this.setState({
                 teacher: {
                     name: '',
@@ -160,6 +160,7 @@ class FormTeacher extends Component {
                             onChange={this.dataChange}
                             className='custom-select'
                     >
+                        <option value='0'>Choose the course</option>
                         {this.state.courses.map(function (course, key) {
                             return (<option key={key} value={course}>{course}</option>)
                         })}
