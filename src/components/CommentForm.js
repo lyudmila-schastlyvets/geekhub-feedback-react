@@ -18,7 +18,7 @@ class CommentForm extends Component {
 
   render() {
     return (
-      <div className='col-md-6'>
+      <div className='col-md-6 single-comment-box'>
         <div className='info'>
           <div className='image'>
             <img src={this.props.teacher.image || logo} alt=''/>

@@ -71,3 +71,9 @@ nav {
   width: 120px;
   align-self: center;
 }
+
+.single-comment-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
