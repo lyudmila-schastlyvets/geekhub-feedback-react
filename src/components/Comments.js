@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import API from './../api'
 import CommentForm from './CommentForm'
 import update from 'immutability-helper'
@@ -11,19 +11,20 @@ class Comments extends Component {
       commentFormsNumber: 0,
       teachers: [],
       comments: [],
-      errorMessage: ''
+      errorMessage: '',
+      wasSent: ''
     }
 
     this.commentsSubmit = this.commentsSubmit.bind(this)
     this.changeComponent = this.changeComponent.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     API.get('feedback/' + this.props.match.params.id)
       .then(function (res) {
         this.setState({
-          teachers: res.data.result,
-          commentator: res.data.id
+          wasSent: res.data.wasSent,
+          teachers: res.data.result
         })
       }.bind(this))
       .catch(function (err) {
@@ -31,12 +32,13 @@ class Comments extends Component {
       })
   }
 
-  changeComponent(message, teacherID, index) {
+  changeComponent(message, teacher, index) {
     let test = update(this.state, {
       comments: {
         [index]: {
           $set: {
-            teacherID: teacherID,
+            teacherID: teacher._id,
+            name: teacher.name,
             message: message
           }
         }
@@ -50,19 +52,25 @@ class Comments extends Component {
       errorMessage: ''
     })
     if (this.state.comments.length === this.state.commentFormsNumber) {
+      let comments = []
       this.state.comments.map((comment) => {
-        API.post('setcomment/', {
+        comments.push({
           "forTeacher": comment.teacherID,
           "content": comment.message,
-          "date": new Date()
+          "teacherName": comment.name,
+          "date": (new Date()).toString()
         })
-          .then(function (res) {
-            console.log(res)
-          })
-          .catch(function (err) {
-            console.log(err)
-          })
       })
+      API.post('setcomment/', {
+        "comments": comments,
+        "user": this.props.match.params.id
+      })
+        .then(function (res) {
+          console.log(res)
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
     } else {
       this.setState({
         errorMessage: 'Please fill in required data'
@@ -73,25 +81,30 @@ class Comments extends Component {
   render() {
     return (
       <div className='container'>
-        <h1>Comment Page Heading</h1>
-        <p>Some text will be here</p>
-        <div className='row'>
-          {this.state.teachers.map((teacher, index) => {
-              this.state.commentFormsNumber = index + 1
-              return <CommentForm
-                key={teacher._id}
-                teacher={teacher}
-                change={this.changeComponent}
-                index={index}
-              />
-            }
-          )}
-        </div>
-        {this.state.errorMessage !== '' ? <p className='error-notification'>{this.state.errorMessage}</p> : ''}
-        <button
-          className='btn btn-primary'
-          onClick={this.commentsSubmit}
-        >Leave Comment</button>
+        {!this.state.wasSent ? (
+            <div>
+              <h1>Comment Page Heading</h1>
+              <p>Some text will be here</p>
+              <div className='row'>
+                {this.state.teachers.map((teacher, index) => {
+                    this.state.commentFormsNumber = index + 1
+                    return <CommentForm
+                      key={teacher._id}
+                      teacher={teacher}
+                      change={this.changeComponent}
+                      index={index}
+                    />
+                  }
+                )}
+              </div>
+              {this.state.errorMessage !== '' ? <p className='error-notification'>{this.state.errorMessage}</p> : ''}
+              <button
+                className='btn btn-primary'
+                onClick={this.commentsSubmit}
+              >Leave Comment</button>
+            </div>
+          ) : (<Redirect to='/'/>)
+        }
       </div>
     )
   }

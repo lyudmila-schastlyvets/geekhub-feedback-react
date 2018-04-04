@@ -13,7 +13,7 @@ class CommentForm extends Component {
   }
 
   handleTextareaChange(e) {
-    this.props.change(e.target.value, this.props.teacher._id, this.props.index)
+    this.props.change(e.target.value, this.props.teacher, this.props.index)
   }
 
   render() {
