@@ -84,7 +84,7 @@ class TeachersList extends Component {
                 <Link
                     to='/admin/teachers/add_teacher'
                     onClick={this.handleClick}
-                    className='btn btn-primary'
+                    className='mg-bottom btn btn-primary'
                 >Add teacher</Link>
                 {
                     // modal for form add/edit teacher
