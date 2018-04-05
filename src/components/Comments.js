@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import API from './../api'
 import CommentForm from './CommentForm'
 import update from 'immutability-helper'
@@ -121,9 +121,9 @@ class Comments extends Component {
                 )}
                 {this.state.addedTeachers.map((el) => (el))}
               </div>
-              {this.state.errorMessage !== '' ? <p className='error-notification'>{this.state.errorMessage}</p> : ''}
+              {this.state.errorMessage !== '' && <p className='error-notification'>{this.state.errorMessage}</p>}
               <button
-                className='btn btn-primary'
+                className='btn btn-primary mg-bottom'
                 onClick={this.commentsSubmit}
               >Leave Comment</button>
             </div>
