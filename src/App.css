@@ -14,8 +14,8 @@
 }
 
 .App-title {
-  font-size: 44px;
-  line-height: 25px;
+  font-size: 2.5em;
+  line-height: 1em;
   font-weight: bold;
 }
 
@@ -85,12 +85,15 @@ nav {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .form-teacher-success {
   color: green;
 }
 
 .narcissus_17w311v {
   padding: 30px 50px !important;
+  left: 35% !important;
+  top: 20% !important;
 }
 
 a.color-btn {

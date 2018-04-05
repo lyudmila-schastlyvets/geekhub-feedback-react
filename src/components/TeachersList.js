@@ -51,12 +51,12 @@ class TeachersList extends Component {
                     this.state.isShowingModal &&
                     <ModalContainer onClose={this.handleClose}>
                         <ModalDialog onClose={this.handleClose}>
-                            <div className='edit_teacher'>
+                            <div className='edit-teacher'>
                                 <Route
                                     path='/admin/teachers/edit_teacher/:id'
                                     render={FormTeacher}/>
                             </div>
-                            <div className='add_teacher'>
+                            <div className='add-teacher'>
                                 <Route
                                     path='/admin/teachers/add_teacher'
                                     render={FormTeacher}/>
@@ -84,7 +84,7 @@ class TeachersList extends Component {
                                 accessor: 'image',
                                 Cell: row => (
                                     <img
-                                        width='100px'
+                                        width='75px'
                                         // check if image not -> visible standard image
                                         src={row.value ? row.value : noPhoto}
                                         alt={row.original.name}
