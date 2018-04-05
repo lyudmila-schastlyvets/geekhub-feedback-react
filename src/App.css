@@ -61,6 +61,7 @@ nav {
 }
 
 .info-data {
+  width: 50%;
   text-align: left;
 }
 
@@ -147,4 +148,8 @@ a.color-btn {
   margin-top: 20px;
   color: white;
   background: #1c1b1c;
+}
+
+textarea.form-control {
+  resize: none;
 }

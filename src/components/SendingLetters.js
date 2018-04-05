@@ -81,13 +81,12 @@ class SendingLetters extends Component {
       "teachers": filteredChosenTeachers
     })
       .then(function (res) {
-        console.log(res)
+        if (res.status === 200)
+          window.location.reload()
       })
       .catch(function (err) {
         console.log(err)
       })
-
-    // Page refresh TODO
   }
 
   handleSelectChange(value, id) {
