@@ -11,12 +11,19 @@
   background-color: #0056b3;
   opacity: 0.75;
   padding: 50px;
+  text-align: left;
+}
+
+.logo {
+  width: 100px;
+  padding-bottom: 20px;
 }
 
 .App-title {
   font-size: 2.5em;
   line-height: 1em;
   font-weight: bold;
+  text-align: center;
 }
 
 .App-intro {
@@ -121,4 +128,23 @@ a.color-btn {
   flex-direction: column;
   min-height: 400px;
   justify-content: center;
+}
+
+.page-404 h1 {
+  font-size: 5em;
+}
+
+.page-404 h3 {
+  color: #007bff;
+}
+
+.routes {
+  height: 100%;
+}
+
+.footer {
+  padding: 20px;
+  margin-top: 20px;
+  color: white;
+  background: #1c1b1c;
 }
