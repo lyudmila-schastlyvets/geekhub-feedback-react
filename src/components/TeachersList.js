@@ -84,7 +84,7 @@ class TeachersList extends Component {
                                 accessor: 'image',
                                 Cell: row => (
                                     <img
-                                        width='200px'
+                                        width='100px'
                                         // check if image not -> visible standard image
                                         src={row.value ? row.value : noPhoto}
                                         alt={row.original.name}

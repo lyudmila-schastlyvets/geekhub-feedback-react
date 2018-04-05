@@ -27,7 +27,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Geekhub charity project</h1>
+          <div className="header-bg">
+            <h1 className="App-title">Geekhub charity project</h1>
+          </div>
         </header>
         <div className='routes'>
           <Switch>

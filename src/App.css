@@ -3,13 +3,20 @@
 }
 
 .App-header {
-  background-color: #222;
-  padding: 20px;
+  background: url("./images/header.jpg");
   color: white;
 }
 
+.header-bg {
+  background-color: #0056b3;
+  opacity: 0.75;
+  padding: 50px;
+}
+
 .App-title {
-  font-size: 1.5em;
+  font-size: 44px;
+  line-height: 25px;
+  font-weight: bold;
 }
 
 .App-intro {
