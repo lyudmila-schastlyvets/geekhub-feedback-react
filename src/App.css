@@ -47,6 +47,7 @@ nav {
 }
 
 .info-data {
+  width: 50%;
   text-align: left;
 }
 
@@ -111,4 +112,8 @@ a.color-btn {
   flex-direction: column;
   min-height: 400px;
   justify-content: center;
+}
+
+textarea.form-control {
+  resize: none;
 }
