@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
+import sha256 from 'crypto-js/sha256'
 import API from './../api'
 
 class Login extends Component {
@@ -27,14 +28,29 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    API.post('login?login=' + this.state.name + '&password=' + this.state.pass)
-      .then(function (response) {
+    let password = this.state.pass
+    API.get('salt?login=' + this.state.name)
+      .then(function(response) {
         if (response.data) {
-          localStorage.setItem('loggedIn', 'true')
-          this.setState({
-            loggedIn: 'true',
-            errorMessage: ''
-          })
+          password = sha256(this.state.pass + response.data).toString()
+          API.post('login?login=' + this.state.name + '&password=' + password)
+            .then(function (response) {
+              if (response.data) {
+                localStorage.setItem('loggedIn', 'true')
+                this.setState({
+                  loggedIn: 'true',
+                  errorMessage: ''
+                })
+              } else {
+                this.setState({
+                  errorMessage: 'Please check entered data'
+                })
+              }
+            }.bind(this))
+            .catch(function (error) {
+                console.log('error ' + error)
+              }
+            )
         } else {
           this.setState({
             errorMessage: 'Please check entered data'
@@ -42,9 +58,8 @@ class Login extends Component {
         }
       }.bind(this))
       .catch(function (error) {
-          console.log('error ' + error)
-        }
-      )
+        console.log('error ' + error)
+      })
   }
 
   render() {
@@ -69,8 +84,8 @@ class Login extends Component {
               onChange={this.passChange}
               required='required'
             />
-            {this.state.errorMessage ? <p className='error-notification'>
-              {this.state.errorMessage}</p> : ''}
+            {this.state.errorMessage && <p className='error-notification'>
+              {this.state.errorMessage}</p>}
             <input
               type='submit'
               value='Submit'
