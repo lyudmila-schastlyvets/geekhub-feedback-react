@@ -112,3 +112,7 @@ a.color-btn {
   min-height: 400px;
   justify-content: center;
 }
+
+textarea.form-control {
+  resize: none;
+}
