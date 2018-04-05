@@ -12,7 +12,7 @@ class Comments extends Component {
       teachers: [],
       comments: [],
       errorMessage: '',
-      wasSent: 'true'
+      wasSent: ''
     }
 
     this.commentsSubmit = this.commentsSubmit.bind(this)
@@ -66,6 +66,9 @@ class Comments extends Component {
         "user": this.props.match.params.id
       })
         .then(function (res) {
+          this.setState({
+            wasSent: 'sent'
+          })
           console.log(res)
         })
         .catch(function (err) {
@@ -81,8 +84,10 @@ class Comments extends Component {
   render() {
     return (
       <div className='container'>
-        {this.state.wasSent === 'true' ? (
-            <div>
+        {(() => {
+          switch (this.state.wasSent) {
+            case "true":
+              return <div>
               <h1>Comment Page Heading</h1>
               <p>Some text will be here</p>
               <div className='row'>
@@ -103,8 +108,20 @@ class Comments extends Component {
                 onClick={this.commentsSubmit}
               >Leave Comment</button>
             </div>
-          ) : (<Redirect to='/'/>)
-        }
+            case "false":
+              return <div className='centered-content'>
+              <h2>Ми вже отримали Ваш відгук!</h2>
+              <p>Повторно залишити чи змінити повідомлення неможливо.</p>
+            </div>
+            case 'sent':
+              return <div className='centered-content'>
+              <h2>Ви успішно відправили відгук!</h2>
+              <p>Ваша думка для нас дуже важлива.</p>
+            </div>
+            default:
+              return <div className='centered-content'><h2>Зачекайте!</h2><p>Cторінка завантажується!</p></div>;
+          }
+        })()}
       </div>
     )
   }
