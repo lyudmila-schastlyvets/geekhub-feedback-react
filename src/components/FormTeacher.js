@@ -58,8 +58,7 @@ class FormTeacher extends Component {
                 course: this.state.teacher.course,
                 image: this.state.teacher.img,
                 _id: this.state.teacher._id
-            },
-            success: false
+            }
         })
         // check if 'name' is empty write error
         if (!this.state.teacher.name) {
