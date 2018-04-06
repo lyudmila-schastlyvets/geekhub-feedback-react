@@ -33,7 +33,7 @@ class App extends Component {
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute exact path='/admin' component={Home} />
-            <PrivateRoute exact path='/admin/feedback' component={Feedback} />
+            <PrivateRoute path='/admin/feedback' component={Feedback} />
             <PrivateRoute path='/admin/teachers' component={Teachers} />
             <PrivateRoute path='/admin/teacher/:id' component={Teacher} />
             <PrivateRoute path='/admin/sending_letters' component={SendingLetters} />
