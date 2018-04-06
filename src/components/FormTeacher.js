@@ -124,7 +124,14 @@ class FormTeacher extends Component {
 
     onFileSubmit(event) {
         event.preventDefault()
-        API.post('upload', this.state.file)
+        const formData = new FormData()
+        formData.append('sampleFile', this.state.file)
+        const config = {
+            headers : {
+                'content-type' : 'multipart/form-data'
+            }
+        }
+        API.post('upload', formData, config)
             .then((response) => {
                 console.log(response.data)
             })
