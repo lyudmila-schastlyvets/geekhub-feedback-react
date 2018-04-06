@@ -57,6 +57,11 @@ h1 {
 
 nav {
   padding: 15px 0;
+  font-size: 18px;
+}
+
+nav .active {
+  color: #0056b3;
 }
 
 .info {

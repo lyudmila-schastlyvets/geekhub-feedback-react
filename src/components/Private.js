@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Redirect, withRouter, Link } from 'react-router-dom'
+import { Route, Redirect, withRouter, NavLink} from 'react-router-dom'
 import Logout from './Logout'
 
 const PrivateRoute = ({component: Component, ...rest}) => {
@@ -9,9 +9,9 @@ const PrivateRoute = ({component: Component, ...rest}) => {
       {loggedIn === 'true' ? <Route {...rest} render={props => (
         <div className='content'>
           <nav>
-            <Link to='/admin/feedback'>Feedback</Link>
-            <Link to='/admin/teachers'>Teachers</Link>
-            <Link to='/admin/sending_letters'>Sending Letters</Link>
+            <NavLink to='/admin/feedback'>Feedback</NavLink>
+            <NavLink to='/admin/teachers'>Teachers</NavLink>
+            <NavLink to='/admin/sending_letters'>Sending Letters</NavLink>
             <Logout />
           </nav>
           <Component {...props} />
