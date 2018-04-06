@@ -38,7 +38,6 @@ class FormTeacher extends Component {
 
         this.dataChange = this.dataChange.bind(this)
         this.onFileChange = this.onFileChange.bind(this)
-        this.onFileSubmit = this.onFileSubmit.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -77,34 +76,50 @@ class FormTeacher extends Component {
         if (!this.state.errors.name &&
             !this.state.errors.course &&
             (!this.state.errors.course && !this.state.errors.name)) {
-            // check edit or add teacher
-            if (!this.state.edit) {
-                API.post('teacher', {
-                    name: teacher.name,
-                    course: teacher.course,
-                    image: teacher.image
-                })
-                    .then(function (response) {
-                        console.log(response)
-                    })
-                    .catch(function (error) {
-                        console.log(error)
-                    })
-                this.state.success = true
-            } else {
-                API.put(`editteacher/${this.state.teacher._id}`,
-                    {
+              const formData = new FormData()
+              formData.append('sampleFile', this.state.file)
+              const config = {
+                headers : {
+                  'content-type' : 'multipart/form-data'
+                }
+              }
+              API.post('upload', formData, config)
+                .then((response) => {
+                  if (response.data) {
+                    // check edit or add teacher
+                    if (!this.state.edit) {
+                      API.post('teacher', {
                         name: teacher.name,
                         course: teacher.course,
-                        image: teacher.image
-                    })
-                    .then(res => {
-                        console.log(res)
-                        console.log(res.data)
-                    })
-                    .catch(errors => console.log(errors))
-                this.state.success = true
-            }
+                        image: response.data
+                      })
+                        .then(function (response) {
+                          this.setState({
+                            success: true
+                          })
+                        }.bind(this))
+                        .catch(function (error) {
+                          console.log(error)
+                        })
+                    } else {
+                      API.put(`editteacher/${this.state.teacher._id}`,
+                        {
+                          name: teacher.name,
+                          course: teacher.course,
+                          image: response.data
+                        })
+                        .then(res => {
+                          this.setState({
+                            success: true
+                          })
+                        })
+                        .catch(errors => console.log(errors))
+                    }
+                  }
+                })
+                .catch(function (error) {
+                  console.log(error)
+                })
         }
         // resetting data
         if (this.state.success && !this.state.edit) {
@@ -120,24 +135,6 @@ class FormTeacher extends Component {
 
     onFileChange(e) {
         this.setState({file: e.target.files[0]})
-    }
-
-    onFileSubmit(event) {
-        event.preventDefault()
-        const formData = new FormData()
-        formData.append('sampleFile', this.state.file)
-        const config = {
-            headers : {
-                'content-type' : 'multipart/form-data'
-            }
-        }
-        API.post('upload', formData, config)
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
     }
 
     componentDidMount() {
@@ -194,11 +191,7 @@ class FormTeacher extends Component {
                             name='image'
                             type='file'
                             onChange={this.onFileChange}
-                        /><br/>
-                        <button
-                            type='submit'
-                            onClick={this.onFileSubmit}
-                        >Upload</button>
+                        />
                     </div>
                     <input
                         className='btn btn-primary'
