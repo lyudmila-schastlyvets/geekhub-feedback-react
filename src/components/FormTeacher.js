@@ -91,7 +91,7 @@ class FormTeacher extends Component {
                       API.post('teacher', {
                         name: teacher.name,
                         course: teacher.course,
-                        image: response.data
+                        image: response.data.url
                       })
                         .then(function (response) {
                           this.setState({
@@ -106,7 +106,7 @@ class FormTeacher extends Component {
                         {
                           name: teacher.name,
                           course: teacher.course,
-                          image: response.data
+                          image: response.data.url
                         })
                         .then(res => {
                           this.setState({
