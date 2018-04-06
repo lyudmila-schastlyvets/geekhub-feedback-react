@@ -29,8 +29,10 @@ class App extends Component {
             <div className='App'>
                 <header className='App-header'>
                     <div className='header-bg'>
-                        <img className='logo' src={logo} alt='geekhub-logo'/>
-                        <h1 className='App-title'>Feedback System</h1>
+                        <div className="container header-responsive">
+                          <img className='logo' src={logo} alt='geekhub-logo'/>
+                          <h1 className='App-title'>Feedback System</h1>
+                        </div>
                     </div>
                 </header>
                 <div className='routes'>
