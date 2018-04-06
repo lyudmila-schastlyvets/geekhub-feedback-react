@@ -58,8 +58,7 @@ class FormTeacher extends Component {
                 course: this.state.teacher.course,
                 image: this.state.teacher.img,
                 _id: this.state.teacher._id
-            },
-            success: false
+            }
         })
         // check if 'name' is empty write error
         if (!this.state.teacher.name) {
@@ -125,7 +124,14 @@ class FormTeacher extends Component {
 
     onFileSubmit(event) {
         event.preventDefault()
-        API.post('upload', this.state.file)
+        const formData = new FormData()
+        formData.append('sampleFile', this.state.file)
+        const config = {
+            headers : {
+                'content-type' : 'multipart/form-data'
+            }
+        }
+        API.post('upload', formData, config)
             .then((response) => {
                 console.log(response.data)
             })
@@ -156,7 +162,7 @@ class FormTeacher extends Component {
     render() {
         return (
             <div>
-                <h3>Teacher form</h3>
+                <h2>Teacher form</h2>
                 <form className='teacher-form'>
                     <input
                         className='required form-control'

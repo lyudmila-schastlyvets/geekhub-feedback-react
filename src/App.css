@@ -31,7 +31,13 @@
   line-height: 1em;
   font-weight: bold;
   text-align: center;
+  padding: 0;
 }
+
+h1 {
+  padding: 10px 0;
+}
+
 
 .App-intro {
   font-size: large;
@@ -51,6 +57,11 @@
 
 nav {
   padding: 15px 0;
+  font-size: 18px;
+}
+
+nav .active {
+  color: #0056b3;
 }
 
 .info {
@@ -124,11 +135,12 @@ a.color-btn {
 }
 
 .teacher-link {
-  color: #007bff!important;
+  color: #007bff !important;
+  cursor: pointer;
 }
 
 .teacher-link:hover {
-  text-decoration: underline!important;
+  text-decoration: underline !important;
 }
 
 .centered-content {
@@ -148,12 +160,12 @@ a.color-btn {
 
 .routes {
   min-height: calc(100vh - 244px);
+  padding-bottom: 10px;
 }
 
 .footer {
   height: 64px;
   padding: 20px;
-  margin-top: 20px;
   color: white;
   background: #1c1b1c;
 }
@@ -172,12 +184,26 @@ textarea.form-control {
   .header-bg {
     text-align: center;
   }
+
   .App-title {
     font-size: 2em;
   }
 
+  h1 {
+    font-size: 1.6em !important;
+  }
+
+  h2 {
+    font-size: 1.5em !important;
+  }
+
+  h3 {
+    font-size: 1em !important;
+  }
+
   .narcissus_17w311v {
     left: 18% !important;
+    width: 80% !important;
   }
 }
 
@@ -185,6 +211,7 @@ textarea.form-control {
   .narcissus_17w311v {
     padding: 10px !important;
     left: 15% !important;
+    width: 85% !important;
   }
 
   .rt-table {
