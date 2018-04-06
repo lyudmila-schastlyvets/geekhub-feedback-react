@@ -13,6 +13,7 @@ class FormTeacher extends Component {
                 image: '',
                 _id: ''
             },
+            file: null,
             errors: {
                 name: '',
                 course: ''
@@ -32,10 +33,12 @@ class FormTeacher extends Component {
                 'Motion Graphics'
             ],
             edit: false,
-            info: ''
+            success: false
         }
 
         this.dataChange = this.dataChange.bind(this)
+        this.onFileChange = this.onFileChange.bind(this)
+        this.onFileSubmit = this.onFileSubmit.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -56,7 +59,7 @@ class FormTeacher extends Component {
                 image: this.state.teacher.img,
                 _id: this.state.teacher._id
             },
-            info: ''
+            success: false
         })
         // check if 'name' is empty write error
         if (!this.state.teacher.name) {
@@ -88,9 +91,7 @@ class FormTeacher extends Component {
                     .catch(function (error) {
                         console.log(error)
                     })
-                this.setState({
-                    info: 'Teacher created!'
-                })
+                this.state.success = true
             } else {
                 API.put(`editteacher/${this.state.teacher._id}`,
                     {
@@ -103,13 +104,11 @@ class FormTeacher extends Component {
                         console.log(res.data)
                     })
                     .catch(errors => console.log(errors))
-                this.setState({
-                    info: 'Teacher edited!'
-                })
+                this.state.success = true
             }
         }
         // resetting data
-        if (!this.state.edit) {
+        if (this.state.success && !this.state.edit) {
             this.setState({
                 teacher: {
                     name: '',
@@ -118,6 +117,21 @@ class FormTeacher extends Component {
                 }
             })
         }
+    }
+
+    onFileChange(e) {
+        this.setState({file: e.target.files[0]})
+    }
+
+    onFileSubmit(event) {
+        event.preventDefault()
+        API.post('upload', this.state.file)
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     componentDidMount() {
@@ -155,17 +169,30 @@ class FormTeacher extends Component {
                     <div className='error-notification'>
                         {this.state.errors.name}
                     </div>
-                    <select name='course'
-                            value={this.state.teacher.course}
-                            onChange={this.dataChange}
-                            className='custom-select'
+                    <select
+                        name='course'
+                        value={this.state.teacher.course}
+                        onChange={this.dataChange}
+                        className='custom-select'
                     >
+                        <option className='hide'>Choose the course</option>
                         {this.state.courses.map(function (course, key) {
                             return (<option key={key} value={course}>{course}</option>)
                         })}
                     </select>
                     <div className='error-notification'>
                         {this.state.errors.course}
+                    </div>
+                    <div className='upload-file'>
+                        <input
+                            name='image'
+                            type='file'
+                            onChange={this.onFileChange}
+                        /><br/>
+                        <button
+                            type='submit'
+                            onClick={this.onFileSubmit}
+                        >Upload</button>
                     </div>
                     <input
                         className='btn btn-primary'
@@ -174,7 +201,12 @@ class FormTeacher extends Component {
                         onClick={this.handleSubmit}
                     />
                     <div className='form-teacher-success'>
-                        {this.state.info}
+                        {this.state.success ?
+                            (this.state.edit ?
+                                'Teacher edited!' :
+                                'Teacher created!') :
+                            ''
+                        }
                     </div>
                 </form>
             </div>

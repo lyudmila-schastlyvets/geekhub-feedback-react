@@ -1,15 +1,36 @@
+.body,
+.rt-table{
+  min-width: 320px !important;
+}
+
 .App {
   text-align: center;
 }
 
 .App-header {
-  background-color: #222;
-  padding: 20px;
+  height: 180px;
+  background: url("./images/header.jpg");
   color: white;
 }
 
+.header-bg {
+  height: 180px;
+  background-color: #0056b3;
+  opacity: 0.75;
+  padding: 40px;
+  text-align: left;
+}
+
+.logo {
+  width: 100px;
+  padding-bottom: 10px;
+}
+
 .App-title {
-  font-size: 1.5em;
+  font-size: 2.5em;
+  line-height: 1em;
+  font-weight: bold;
+  text-align: center;
 }
 
 .App-intro {
@@ -79,12 +100,15 @@ nav {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .form-teacher-success {
   color: green;
 }
 
 .narcissus_17w311v {
   padding: 30px 50px !important;
+  left: 35% !important;
+  top: 20% !important;
 }
 
 a.color-btn {
@@ -114,10 +138,61 @@ a.color-btn {
   justify-content: center;
 }
 
+.page-404 h1 {
+  font-size: 5em;
+}
+
+.page-404 h3 {
+  color: #007bff;
+}
+
+.routes {
+  min-height: calc(100vh - 244px);
+}
+
+.footer {
+  height: 64px;
+  padding: 20px;
+  margin-top: 20px;
+  color: white;
+  background: #1c1b1c;
+}
+
 textarea.form-control {
   resize: none;
 }
 
 .additional-teacher {
   display: flex;
+}
+
+@media screen and (max-width: 900px) {
+  .narcissus_17w311v {
+    left: 30% !important;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .header-bg {
+    text-align: center;
+  }
+  .App-title {
+    font-size: 2em;
+  }
+
+  .narcissus_17w311v {
+    left: 18% !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .narcissus_17w311v {
+    padding: 10px !important;
+    left: 15% !important;
+  }
+
+  .rt-table {
+    flex: 100 0 auto;
+    width: 100px;
+  }
 }

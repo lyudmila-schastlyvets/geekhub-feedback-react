@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import { Route, Switch } from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
+import logo from './images/logo-geekhub.png'
 
 import PrivateRoute from './components/Private'
 
@@ -16,35 +17,39 @@ import NotFound from './components/NotFound'
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: localStorage.getItem('loggedIn')
+    constructor(props) {
+        super(props)
+        this.state = {
+            loggedIn: localStorage.getItem('loggedIn')
+        }
     }
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Geekhub charity project</h1>
-        </header>
-        <div className='routes'>
-          <Switch>
-            <PrivateRoute exact path='/' component={Home} />
-            <PrivateRoute exact path='/admin' component={Home} />
-            <PrivateRoute path='/admin/feedback' component={Feedback} />
-            <PrivateRoute path='/admin/teachers' component={Teachers} />
-            <PrivateRoute path='/admin/teacher/:id' component={Teacher} />
-            <PrivateRoute path='/admin/sending_letters' component={SendingLetters} />
-            <Route path='/admin/login' component={Login} />
-            <Route path='/feedback/:id' component={Comments}/>
-            <Route component={NotFound}/>
-          </Switch>
-        </div>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div className='App'>
+                <header className='App-header'>
+                    <div className='header-bg'>
+                        <img className='logo' src={logo} alt='geekhub-logo'/>
+                        <h1 className='App-title'>Feedback System</h1>
+                    </div>
+                </header>
+                <div className='routes'>
+                    <Switch>
+                        <PrivateRoute exact path='/' component={Home}/>
+                        <PrivateRoute exact path='/admin' component={Home}/>
+                        <PrivateRoute path='/admin/feedback' component={Feedback}/>
+                        <PrivateRoute path='/admin/teachers' component={Teachers}/>
+                        <PrivateRoute path='/admin/teacher/:id' component={Teacher}/>
+                        <PrivateRoute path='/admin/sending_letters' component={SendingLetters}/>
+                        <Route path='/admin/login' component={Login}/>
+                        <Route path='/feedback/:id' component={Comments}/>
+                        <Route component={NotFound}/>
+                    </Switch>
+                </div>
+                <div className='footer'>Copyright &#169; GeekHub 2018</div>
+            </div>
+        )
+    }
 }
 
 export default App

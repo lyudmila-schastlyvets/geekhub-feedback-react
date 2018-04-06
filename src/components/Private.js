@@ -11,7 +11,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
           <nav>
             <Link to='/admin/feedback'>Feedback</Link>
             <Link to='/admin/teachers'>Teachers</Link>
-            <Link to='/admin/sending_letters'>SendingLetters</Link>
+            <Link to='/admin/sending_letters'>Sending Letters</Link>
             <Logout />
           </nav>
           <Component {...props} />
