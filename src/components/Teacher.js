@@ -72,7 +72,7 @@ class Teacher extends Component {
                                         Header: 'Date',
                                         accessor: 'date',
                                         Cell: row => (
-                                            require('dateformat')(row.value, 'dd mmm yyyy HH:MM:ss')
+                                            <span>{new Date(row.original.date).toLocaleString()}</span>
                                         )
                                     }
                                 ]}

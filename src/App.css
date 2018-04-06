@@ -124,11 +124,12 @@ a.color-btn {
 }
 
 .teacher-link {
-  color: #007bff!important;
+  color: #007bff !important;
+  cursor: pointer;
 }
 
 .teacher-link:hover {
-  text-decoration: underline!important;
+  text-decoration: underline !important;
 }
 
 .centered-content {
@@ -153,7 +154,6 @@ a.color-btn {
 .footer {
   height: 64px;
   padding: 20px;
-  margin-top: 20px;
   color: white;
   background: #1c1b1c;
 }
@@ -172,6 +172,7 @@ textarea.form-control {
   .header-bg {
     text-align: center;
   }
+
   .App-title {
     font-size: 2em;
   }
