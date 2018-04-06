@@ -1,3 +1,8 @@
+.body,
+.rt-table{
+  min-width: 320px !important;
+}
+
 .App {
   text-align: center;
 }
@@ -181,5 +186,9 @@ textarea.form-control {
     padding: 10px !important;
     left: 15% !important;
   }
-}
 
+  .rt-table {
+    flex: 100 0 auto;
+    width: 100px;
+  }
+}
