@@ -14,13 +14,14 @@ class Comments extends Component {
       comments: [],
       errorMessage: '',
       wasSent: '',
-      addedFeedbacks: 0,
-      addedTeachers: []
+      teachersList: [],
+      addedTeacher: false
     }
 
     this.commentsSubmit = this.commentsSubmit.bind(this)
     this.changeComponent = this.changeComponent.bind(this)
-    this.addFeedBackFunction = this.addFeedBackFunction.bind(this)
+    this.handleSelectChange = this.handleSelectChange.bind(this)
+    this.addedTeacher = this.addedTeacher.bind(this)
   }
 
   componentWillMount() {
@@ -34,12 +35,12 @@ class Comments extends Component {
       .catch(function (err) {
         console.log(err)
       })
-    // API.get('teacher')
-    //   .then(function (res) {
-    //     this.setState({
-    //       teachersForAdding: res.data
-    //     })
-    //   }.bind(this))
+    API.get('teacher')
+      .then(function (res) {
+        this.setState({
+          teachersList: res.data
+        })
+      }.bind(this))
   }
 
   changeComponent(message, teacher, index) {
@@ -57,11 +58,26 @@ class Comments extends Component {
     this.setState(test)
   }
 
+  handleSelectChange(value) {
+    this.setState({
+      chosenTeacher: value
+    })
+  }
+
+  addedTeacher() {
+    this.setState({
+      addedTeacher: true
+    })
+  }
+
   commentsSubmit() {
     this.setState({
       errorMessage: ''
     })
-    if (this.state.comments.length === this.state.commentFormsNumber) {
+    let formsNumber = this.state.commentFormsNumber
+    if (this.state.addedTeacher)
+      formsNumber++
+    if (this.state.comments.length === formsNumber) {
       let comments = []
       this.state.comments.map((comment) => {
         comments.push({
@@ -71,16 +87,17 @@ class Comments extends Component {
           "date": (new Date()).toString()
         })
       })
+      console.log(comments)
       API.post('setcomment/', {
         "comments": comments,
         "user": this.props.match.params.id
       })
         .then(function (res) {
-          this.setState({
-            wasSent: 'sent'
-          })
-          console.log(res)
-        })
+          if (res.status === 200)
+            this.setState({
+              wasSent: 'sent'
+            })
+        }.bind(this))
         .catch(function (err) {
           console.log(err)
         })
@@ -91,10 +108,6 @@ class Comments extends Component {
     }
   }
 
-  addFeedBackFunction() {
-    console.log('add feedback')
-  }
-
   render() {
     return (
       <div className='container'>
@@ -102,8 +115,8 @@ class Comments extends Component {
           switch (this.state.wasSent) {
             case "true":
               return <div>
-              <h1>Comment Page Heading</h1>
-              <p>Some text will be here</p>
+              <h1>Залиште свій відгук!</h1>
+              <p>Для покращення роботи нам дуже важливо отримати думку кожного про викладачів команди Geekhub</p>
               <div className='row'>
                 {this.state.teachers.map((teacher, index) => {
                     this.state.commentFormsNumber = index + 1
@@ -115,13 +128,22 @@ class Comments extends Component {
                     />
                   }
                 )}
-                {this.state.addedTeachers.map((el) => (el))}
               </div>
+              <p>Також ви можете лишити свої враження від викладача,
+                з яким ви спілкувались під час навчання на курсах.
+                Для цього достатньо натиснути кнопку нижче.</p>
+              <AdditionalFeedback
+                teachers={this.state.teachersList}
+                handleSelectChange={this.handleSelectChange}
+                change={this.changeComponent}
+                index={this.state.teachers.length}
+                addedTeacher={this.addedTeacher}
+              />
               {this.state.errorMessage !== '' && <p className='error-notification'>{this.state.errorMessage}</p>}
               <button
                 className='btn btn-primary mg-bottom'
                 onClick={this.commentsSubmit}
-              >Leave Comment</button>
+              >Залишити відгуки</button>
             </div>
             case "false":
               return <div className='centered-content'>

@@ -117,3 +117,7 @@ a.color-btn {
 textarea.form-control {
   resize: none;
 }
+
+.additional-teacher {
+  display: flex;
+}

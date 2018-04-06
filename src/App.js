@@ -13,7 +13,6 @@ import Login from './components/Login'
 import Comments from './components/Comments'
 import Teacher from './components/Teacher'
 import NotFound from './components/NotFound'
-import FeedbackUser from './components/FeedbackUser'
 
 class App extends Component {
 
@@ -39,8 +38,7 @@ class App extends Component {
             <PrivateRoute path='/admin/teacher/:id' component={Teacher} />
             <PrivateRoute path='/admin/sending_letters' component={SendingLetters} />
             <Route path='/admin/login' component={Login} />
-            <Route path='/feedback/:id' component={FeedbackUser}/>
-            <PrivateRoute path='admin/feedback/test/:id' component={Comments}/>
+            <Route path='/feedback/:id' component={Comments}/>
             <Route component={NotFound}/>
           </Switch>
         </div>
