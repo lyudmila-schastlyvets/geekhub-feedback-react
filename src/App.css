@@ -17,7 +17,7 @@
   height: 180px;
   background-color: #0056b3;
   opacity: 0.75;
-  padding: 40px;
+  padding: 40px 0;
   text-align: left;
 }
 
@@ -27,6 +27,7 @@
 }
 
 .App-title {
+  width: calc(100% - 200px);
   font-size: 2.5em;
   line-height: 1em;
   font-weight: bold;
@@ -72,10 +73,13 @@ nav .active {
 .image {
   width: 50%;
   margin-right: 20px;
+  height: 150px;
 }
 
 .image img {
   max-width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .info-data {
@@ -178,6 +182,12 @@ textarea.form-control {
   display: flex;
 }
 
+.header-responsive {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 @media screen and (max-width: 900px) {
   .narcissus_17w311v {
     left: 30% !important;
@@ -221,5 +231,20 @@ textarea.form-control {
   .rt-table {
     flex: 100 0 auto;
     width: 100px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .header-responsive {
+    flex-direction: column;
+  }
+  .App-title {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .image {
+    height: 200px;
   }
 }
