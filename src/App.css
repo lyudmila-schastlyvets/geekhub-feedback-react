@@ -31,7 +31,13 @@
   line-height: 1em;
   font-weight: bold;
   text-align: center;
+  padding: 0;
 }
+
+h1 {
+  padding: 10px 0;
+}
+
 
 .App-intro {
   font-size: large;
@@ -149,6 +155,7 @@ a.color-btn {
 
 .routes {
   min-height: calc(100vh - 244px);
+  padding-bottom: 10px;
 }
 
 .footer {
@@ -177,8 +184,21 @@ textarea.form-control {
     font-size: 2em;
   }
 
+  h1 {
+    font-size: 1.6em !important;
+  }
+
+  h2 {
+    font-size: 1.5em !important;
+  }
+
+  h3 {
+    font-size: 1em !important;
+  }
+
   .narcissus_17w311v {
     left: 18% !important;
+    width: 80% !important;
   }
 }
 
@@ -186,6 +206,7 @@ textarea.form-control {
   .narcissus_17w311v {
     padding: 10px !important;
     left: 15% !important;
+    width: 85% !important;
   }
 
   .rt-table {

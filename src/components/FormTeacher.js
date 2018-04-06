@@ -156,7 +156,7 @@ class FormTeacher extends Component {
     render() {
         return (
             <div>
-                <h3>Teacher form</h3>
+                <h2>Teacher form</h2>
                 <form className='teacher-form'>
                     <input
                         className='required form-control'
