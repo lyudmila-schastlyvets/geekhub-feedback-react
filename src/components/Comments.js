@@ -117,7 +117,6 @@ class Comments extends Component {
                 )}
                 {this.state.addedTeachers.map((el) => (el))}
               </div>
-              <AdditionalFeedback />
               {this.state.errorMessage !== '' && <p className='error-notification'>{this.state.errorMessage}</p>}
               <button
                 className='btn btn-primary mg-bottom'
