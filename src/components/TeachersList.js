@@ -3,6 +3,7 @@ import {withRouter, Link, Route} from 'react-router-dom'
 import {ModalContainer, ModalDialog} from 'react-modal-dialog-react16'
 import API from '../api'
 import ReactTable from 'react-table'
+
 import 'react-table/react-table.css'
 import noPhoto from '../images/teacher.png'
 
@@ -15,13 +16,12 @@ class TeachersList extends Component {
             teachers: [],
             isShowingModal: false
         }
+        this.handleClick = this.handleClick.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
 
     handleClick = () => this.setState({isShowingModal: true})
-    handleClose = () => {
-        this.setState({isShowingModal: false})
-        this.componentDidMount()
-    }
+    handleClose = () => {window.location.reload()}
 
     componentDidMount() {
         API.get('teacher')
