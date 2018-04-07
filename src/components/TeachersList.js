@@ -37,7 +37,7 @@ class TeachersList extends Component {
     }
 
     render() {
-        var item = this.state.teachers.length
+        let item = this.state.teachers.length
         return (
             <div>
                 <h1>Teachers</h1>
