@@ -143,6 +143,13 @@ class FormTeacher extends Component {
                         })
                         .then(res => {
                             console.log(res)
+                            this.setState ({
+                                teacher: {
+                                    name: teacher.name,
+                                    course: teacher.course,
+                                    image: teacher.image
+                                }
+                            })
                         })
                         .catch(errors => console.log(errors))
                     this.state.success = true
