@@ -65,7 +65,7 @@ class FormTeacher extends Component {
             (this.state.errors.course && this.state.errors.name)) {
             this.state.success = false
         } else {
-            // check if add or edit teacher
+            // check add or edit teacher
             if (!this.state.edit) {
                 const formData = new FormData()
                 formData.append('sampleFile', this.state.file)
@@ -78,22 +78,25 @@ class FormTeacher extends Component {
                 if (this.state.file) {
                     API.post('upload', formData, config)
                         .then((response) => {
-                            API.post('teacher', {
-                                name: teacher.name,
-                                course: teacher.course,
-                                image: response.data.url
-                            })
-                                .then(function (response) {
-                                    console.log(response)
-                                }.bind(this))
-                                .catch(function (error) {
-                                    console.log(error)
+                            if (response) {
+                                API.post('teacher', {
+                                    name: teacher.name,
+                                    course: teacher.course,
+                                    image: response.data.url
                                 })
+                                    .then(function (response) {
+                                        console.log(response)
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error)
+                                    })
+                                this.state.success = true
+                            }
                         })
                         .catch(function (error) {
                             console.log(error)
                         })
-                    this.state.success = true
+
                 } else {
                     // add without image
                     API.post('teacher', {
@@ -102,11 +105,13 @@ class FormTeacher extends Component {
                     })
                         .then(res => {
                             console.log(res)
+                            this.setState({
+                                success: true
+                            })
                         })
                         .catch(function (error) {
                             console.log(error)
                         })
-                    this.state.success = true
                 }
             } else {
                 const formData = new FormData()
@@ -119,20 +124,22 @@ class FormTeacher extends Component {
                 // check image upload
                 if (this.state.file) {
                     API.post('upload', formData, config)
-                        .then((response) => {
-
-                            API.put(`editteacher/${this.state.teacher._id}`,
-                                {
-                                    name: teacher.name,
-                                    course: teacher.course,
-                                    image: response.data.url
-                                })
-                                .then(res => {
-                                    console.log(res)
-                                })
-                                .catch(errors => console.log(errors))
+                    .then((response) => {
+                            if (response) {
+                                API.put(`editteacher/${this.state.teacher._id}`,
+                                    {
+                                        name: teacher.name,
+                                        course: teacher.course,
+                                        image: response.data.url
+                                    })
+                                    .then(res => {
+                                        console.log(res)
+                                    })
+                                    .catch(errors => console.log(errors))
+                                this.state.success = true
+                            }
                         })
-                    this.state.success = true
+
                 } else {
                     // edit without image
                     API.put(`editteacher/${this.state.teacher._id}`,
@@ -143,19 +150,18 @@ class FormTeacher extends Component {
                         })
                         .then(res => {
                             console.log(res)
-                            this.setState ({
+                            this.setState({
                                 teacher: {
                                     name: teacher.name,
                                     course: teacher.course,
                                     image: teacher.image
-                                }
+                                },
+                                success: true
                             })
                         })
                         .catch(errors => console.log(errors))
-                    this.state.success = true
                 }
             }
-
         }
         // resetting data
         if (this.state.success && !this.state.edit) {
@@ -168,6 +174,7 @@ class FormTeacher extends Component {
                 file: null
             })
         }
+
     }
 
     onFileChange(e) {
@@ -227,6 +234,7 @@ class FormTeacher extends Component {
                         <input
                             name='image'
                             type='file'
+                            value={this.state.image}
                             onChange={this.onFileChange}
                         />
                     </div>
