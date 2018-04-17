@@ -60,53 +60,108 @@ class FormTeacher extends Component {
         }
         const teacher = this.state.teacher
         // check errors exist
-        if (!this.state.errors.name &&
-            !this.state.errors.course &&
-            (!this.state.errors.course && !this.state.errors.name)) {
-              const formData = new FormData()
-              formData.append('sampleFile', this.state.file)
-              const config = {
-                headers : {
-                  'content-type' : 'multipart/form-data'
+        if (this.state.errors.name &&
+            this.state.errors.course &&
+            (this.state.errors.course && this.state.errors.name)) {
+            this.state.success = false
+        } else {
+            // check add or edit teacher
+            if (!this.state.edit) {
+                const formData = new FormData()
+                formData.append('sampleFile', this.state.file)
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
                 }
-              }
-              API.post('upload', formData, config)
-                .then((response) => {
-                  if (response.data) {
-                    // check edit or add teacher
-                    if (!this.state.edit) {
-                      API.post('teacher', {
-                        name: teacher.name,
-                        course: teacher.course,
-                        image: response.data.secure_url
-                      })
-                        .then(function (response) {
-                          this.setState({
-                            success: true
-                          })
-                        }.bind(this))
-                        .catch(function (error) {
-                          console.log(error)
+                // check image upload
+                if (this.state.file) {
+                    API.post('upload', formData, config)
+                        .then((response) => {
+                            if (response) {
+                                API.post('teacher', {
+                                    name: teacher.name,
+                                    course: teacher.course,
+                                    image: response.data.url
+                                })
+                                    .then(function (response) {
+                                        console.log(response)
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error)
+                                    })
+                                this.state.success = true
+                            }
                         })
-                    } else {
-                      API.put(`editteacher/${this.state.teacher._id}`,
+                        .catch(function (error) {
+                            console.log(error)
+                        })
+
+                } else {
+                    // add without image
+                    API.post('teacher', {
+                        name: teacher.name,
+                        course: teacher.course
+                    })
+                        .then(res => {
+                            console.log(res)
+                            this.setState({
+                                success: true
+                            })
+                        })
+                        .catch(function (error) {
+                            console.log(error)
+                        })
+                }
+            } else {
+                const formData = new FormData()
+                formData.append('sampleFile', this.state.file)
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                }
+                // check image upload
+                if (this.state.file) {
+                    API.post('upload', formData, config)
+                    .then((response) => {
+                            if (response) {
+                                API.put(`editteacher/${this.state.teacher._id}`,
+                                    {
+                                        name: teacher.name,
+                                        course: teacher.course,
+                                        image: response.data.url
+                                    })
+                                    .then(res => {
+                                        console.log(res)
+                                    })
+                                    .catch(errors => console.log(errors))
+                                this.state.success = true
+                            }
+                        })
+
+                } else {
+                    // edit without image
+                    API.put(`editteacher/${this.state.teacher._id}`,
                         {
-                          name: teacher.name,
-                          course: teacher.course,
-                          image: response.data.secure_url
+                            name: teacher.name,
+                            course: teacher.course,
+                            image: teacher.image
                         })
                         .then(res => {
-                          this.setState({
-                            success: true
-                          })
+                            console.log(res)
+                            this.setState({
+                                teacher: {
+                                    name: teacher.name,
+                                    course: teacher.course,
+                                    image: teacher.image
+                                },
+                                success: true
+                            })
                         })
                         .catch(errors => console.log(errors))
-                    }
-                  }
-                })
-                .catch(function (error) {
-                  console.log(error)
-                })
+                }
+            }
         }
         // resetting data
         if (this.state.success && !this.state.edit) {
@@ -115,7 +170,8 @@ class FormTeacher extends Component {
                     name: '',
                     course: '',
                     image: ''
-                }
+                },
+                file: null
             })
         }
     }
@@ -177,6 +233,7 @@ class FormTeacher extends Component {
                         <input
                             name='image'
                             type='file'
+                            value={this.state.image}
                             onChange={this.onFileChange}
                         />
                     </div>

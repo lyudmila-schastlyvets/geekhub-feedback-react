@@ -57,7 +57,6 @@ class Feedback extends Component {
             className='-striped -highlight'
             showPageSizeOptions={false}
             noDataText='No comments were found.'
-            minRows={10}
           />
         </div>
       </div>

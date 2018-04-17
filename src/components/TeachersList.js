@@ -3,6 +3,7 @@ import {withRouter, Link, Route} from 'react-router-dom'
 import {ModalContainer, ModalDialog} from 'react-modal-dialog-react16'
 import API from '../api'
 import ReactTable from 'react-table'
+
 import 'react-table/react-table.css'
 import noPhoto from '../images/teacher.png'
 
