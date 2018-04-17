@@ -104,7 +104,6 @@ class FormTeacher extends Component {
                         course: teacher.course
                     })
                         .then(res => {
-                            console.log(res)
                             this.setState({
                                 success: true
                             })
@@ -133,10 +132,11 @@ class FormTeacher extends Component {
                                         image: response.data.url
                                     })
                                     .then(res => {
-                                        console.log(res)
+                                        this.setState({
+                                          success: true
+                                        })
                                     })
                                     .catch(errors => console.log(errors))
-                                this.state.success = true
                             }
                         })
 
@@ -149,7 +149,6 @@ class FormTeacher extends Component {
                             image: teacher.image
                         })
                         .then(res => {
-                            console.log(res)
                             this.setState({
                                 teacher: {
                                     name: teacher.name,
