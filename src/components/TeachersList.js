@@ -15,13 +15,12 @@ class TeachersList extends Component {
             teachers: [],
             isShowingModal: false
         }
+        this.handleClick = this.handleClick.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
 
     handleClick = () => this.setState({isShowingModal: true})
-    handleClose = () => {
-        this.setState({isShowingModal: false})
-        this.componentDidMount()
-    }
+    handleClose = () => window.location.reload()
 
     componentDidMount() {
         API.get('teacher')
