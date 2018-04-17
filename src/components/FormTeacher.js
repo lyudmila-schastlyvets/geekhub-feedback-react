@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import update from 'immutability-helper'
 import API from '../api'
+import {COURSES} from './../constants'
 
 class FormTeacher extends Component {
     constructor(props) {
@@ -18,20 +19,6 @@ class FormTeacher extends Component {
                 name: '',
                 course: ''
             },
-            courses: [
-                'Frontend + CMS',
-                'Frontend + JS',
-                'Online Marketing',
-                'Advanced PHP',
-                'Javascript',
-                'Java for Web',
-                'Ruby on Rails',
-                'Python',
-                'Quality Assurance',
-                'Advanced Android',
-                'Project Management',
-                'Motion Graphics'
-            ],
             edit: false,
             success: false
         }
@@ -179,7 +166,7 @@ class FormTeacher extends Component {
                         className='custom-select'
                     >
                         <option className='hide'>Choose the course</option>
-                        {this.state.courses.map(function (course, key) {
+                        {COURSES.map(function (course, key) {
                             return (<option key={key} value={course}>{course}</option>)
                         })}
                     </select>
