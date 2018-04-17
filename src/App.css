@@ -147,6 +147,10 @@ a.color-btn {
   text-decoration: underline !important;
 }
 
+.teacher-info img {
+  max-width: 300px;
+}
+
 .centered-content {
   display: flex;
   flex-direction: column;
