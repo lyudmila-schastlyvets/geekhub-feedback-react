@@ -174,7 +174,6 @@ class FormTeacher extends Component {
                 file: null
             })
         }
-
     }
 
     onFileChange(e) {

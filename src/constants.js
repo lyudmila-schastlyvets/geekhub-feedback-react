@@ -11,4 +11,5 @@ export const COURSES = [
     'Quality Assurance',
     'Advanced Android',
     'Project Management',
-    'Motion Graphics' ]
+    'Motion Graphics'
+]
