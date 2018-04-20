@@ -107,7 +107,7 @@ class FormTeacher extends Component {
                 <h2>Course form</h2>
                 <form className='course-form'>
                     <input
-                        className='required form-control'
+                        className='required form-control mg-bottom'
                         name='name'
                         type='text'
                         placeholder='Name'
