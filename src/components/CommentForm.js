@@ -6,14 +6,24 @@ class CommentForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      message: ''
+      message: '',
+      error: false
     }
 
     this.handleTextareaChange = this.handleTextareaChange.bind(this)
   }
 
   handleTextareaChange(e) {
-    this.props.change(e.target.value, this.props.teacher, this.props.index)
+    if (e.target.value.length > 500) {
+      this.setState({
+        error: true
+      })
+    } else {
+      this.setState({
+        error: false
+      })
+      this.props.change(e.target.value, this.props.teacher, this.props.index)
+    }
   }
 
   render() {
@@ -36,6 +46,9 @@ class CommentForm extends Component {
             rows='6'
             onChange={this.handleTextareaChange}
           />
+          <div className='error-notification'>
+            {this.state.error ? 'Too long feedback, limit 500 symbols' : ''}
+          </div>
         </div>
       </div>
     )
