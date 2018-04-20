@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import API from './../api'
-import CommentForm from './CommentForm'
 import update from 'immutability-helper'
 import AdditionalFeedback from './AdditionalFeedback'
+import CommentForm from './CommentForm'
+import PageUpload from './PageUpload'
 
 class Comments extends Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class Comments extends Component {
       <div className='container'>
         {(() => {
           switch (this.state.wasSent) {
-            case "true":
+            case 'true':
               return <div>
               <h1>Залиште свій відгук!</h1>
               <p>Для покращення роботи нам дуже важливо отримати думку кожного про викладачів команди Geekhub</p>
@@ -147,7 +148,7 @@ class Comments extends Component {
                 onClick={this.commentsSubmit}
               >Залишити відгуки</button>
             </div>
-            case "false":
+            case 'false':
               return <div className='centered-content'>
               <h2>Ми вже отримали Ваш відгук!</h2>
               <p>Повторно залишити чи змінити повідомлення неможливо.</p>
@@ -158,10 +159,7 @@ class Comments extends Component {
               <p>Ваша думка для нас дуже важлива.</p>
             </div>
             default:
-              return <div className='centered-content'>
-                <h2>Зачекайте!</h2>
-                <p>Cторінка завантажується!</p>
-              </div>
+              return <PageUpload/>
           }
         })()}
       </div>
