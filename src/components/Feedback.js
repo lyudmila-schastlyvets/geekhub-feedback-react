@@ -27,7 +27,13 @@ class Feedback extends Component {
   render () {
     const columns = [{
         Header: 'Comment',
-        accessor: 'content'
+        accessor: 'content',
+        Cell: row => (<textarea
+          disabled
+          className='feedback'
+          rows='5'
+          defaultValue={row.original.content}
+        ></textarea>)
       }, {
         Header: 'Date',
         accessor: 'date',

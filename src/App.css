@@ -182,6 +182,14 @@ textarea.form-control {
   resize: none;
 }
 
+textarea.feedback {
+  width: 100%;
+  border-radius: 4px;
+  resize: none;
+  background-color: transparent;
+}
+
+
 .additional-teacher {
   display: flex;
 }
