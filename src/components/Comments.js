@@ -79,14 +79,14 @@ class Comments extends Component {
       formsNumber++
     if (this.state.comments.length === formsNumber) {
       let comments = []
-      this.state.comments.map((comment) => {
+      this.state.comments.map((comment) =>
         comments.push({
           "forTeacher": comment.teacherID,
           "content": comment.message,
           "teacherName": comment.name,
           "date": (new Date()).toString()
         })
-      })
+      )
       console.log(comments)
       API.post('setcomment/', {
         "comments": comments,
@@ -109,6 +109,7 @@ class Comments extends Component {
   }
 
   render() {
+    let teachersToRemove =[]
     return (
       <div className='container'>
         {(() => {
@@ -119,13 +120,14 @@ class Comments extends Component {
               <p>Для покращення роботи нам дуже важливо отримати думку кожного про викладачів команди Geekhub</p>
               <div className='row'>
                 {this.state.teachers.map((teacher, index) => {
-                    this.state.commentFormsNumber = index + 1
-                    return <CommentForm
-                      key={teacher._id}
-                      teacher={teacher}
-                      change={this.changeComponent}
-                      index={index}
-                    />
+                  this.state.commentFormsNumber = index + 1
+                  teachersToRemove.push(teacher._id)
+                  return <CommentForm
+                    key={teacher._id}
+                    teacher={teacher}
+                    change={this.changeComponent}
+                    index={index}
+                  />
                   }
                 )}
               </div>
@@ -133,7 +135,7 @@ class Comments extends Component {
                 з яким ви спілкувались під час навчання на курсах.
                 Для цього достатньо натиснути кнопку нижче.</p>
               <AdditionalFeedback
-                teachers={this.state.teachersList}
+                teachers={this.state.teachersList.filter((el) => !teachersToRemove.includes( el._id ))}
                 handleSelectChange={this.handleSelectChange}
                 change={this.changeComponent}
                 index={this.state.teachers.length}
