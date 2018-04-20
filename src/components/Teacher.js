@@ -78,7 +78,13 @@ class Teacher extends Component {
                             columns={[
                               {
                                 Header: 'Comments',
-                                accessor: 'content'
+                                accessor: 'content',
+                                Cell: row => (<textarea
+                                  disabled
+                                  className='feedback'
+                                  rows='5'
+                                  defaultValue={row.original.content}
+                                ></textarea>)
                               },
                               {
                                 Header: 'Date',
