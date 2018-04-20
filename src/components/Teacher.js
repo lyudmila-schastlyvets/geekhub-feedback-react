@@ -4,6 +4,8 @@ import API from '../api'
 import noPhoto from '../images/teacher.png'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import NotFound from './NotFound'
+import PageUpload from './PageUpload'
 
 class Teacher extends Component {
     constructor(props) {
@@ -13,18 +15,24 @@ class Teacher extends Component {
             comments: {
                 result: []
             },
-            //for check loading data
-            loading: false
+            //for check response data
+            responseStatus: ''
         }
     }
 
     componentDidMount() {
         API.get(`teacher/${this.props.match.params.id}`)
             .then(function (response) {
+              if(response.data) {
                 this.setState({
-                    teacher: response.data,
-                    loading: true
+                  teacher: response.data,
+                  responseStatus: 'true'
                 })
+              } else {
+                this.setState({
+                  responseStatus: 'null'
+                })
+              }
             }.bind(this))
 
             .catch(function (error) {
@@ -45,44 +53,55 @@ class Teacher extends Component {
     }
 
     render() {
-        var item = this.state.comments.result.length
+        let item = this.state.comments.result.length
         return (
-            <div className={this.state.loading ? 'visible' : 'hide'}>
-                <div className='teacher-info'>
-                    <h1>{this.state.teacher.name}</h1>
-                    <img
+          <div className=''>
+            {(() => {
+              switch (this.state.responseStatus) {
+                case 'true':
+                  return <div className=''>
+                    <div className='teacher-info'>
+                      <h1>{this.state.teacher.name}</h1>
+                      <img
                         src={this.state.teacher.image ? this.state.teacher.image : noPhoto}
                         alt={this.state.teacher.name}
-                    />
-                    <p>Course: {this.state.teacher.course}</p>
-                </div>
-                <div className='comments'>
-                    <h3>Feedback</h3>
-                    <div id='teacher_comments' className='teacher-comments'>
-                        {(item === 0) ?
-                            <div>No feedback</div> :
-                            <ReactTable
-                                data={this.state.comments.result}
-                                columns={[
-                                    {
-                                        Header: 'Comments',
-                                        accessor: 'content'
-                                    },
-                                    {
-                                        Header: 'Date',
-                                        accessor: 'date',
-                                        Cell: row => (
-                                            <span>{new Date(row.original.date).toLocaleString()}</span>
-                                        )
-                                    }
-                                ]}
-                                pageSize={(item < 10) ? item : 10}
-                                className='-striped -highlight'
-                            />
-                        }
+                      />
+                      <p>Course: {this.state.teacher.course}</p>
                     </div>
-                </div>
-            </div>
+                    <div className='comments'>
+                      <h3>Feedback</h3>
+                      <div id='teacher_comments' className='teacher-comments'>
+                        {(item === 0) ?
+                          <div>No feedback</div> :
+                          <ReactTable
+                            data={this.state.comments.result}
+                            columns={[
+                              {
+                                Header: 'Comments',
+                                accessor: 'content'
+                              },
+                              {
+                                Header: 'Date',
+                                accessor: 'date',
+                                Cell: row => (
+                                  <span>{new Date(row.original.date).toLocaleString()}</span>
+                                )
+                              }
+                            ]}
+                            pageSize={(item < 10) ? item : 10}
+                            className='-striped -highlight'
+                          />
+                        }
+                      </div>
+                    </div>
+                  </div>
+                case 'null':
+                  return <NotFound/>
+                default:
+                  return <PageUpload/>
+              }
+            })()}
+          </div>
         )
     }
 }
