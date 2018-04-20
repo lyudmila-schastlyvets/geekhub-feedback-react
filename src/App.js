@@ -14,6 +14,7 @@ import Login from './components/Login'
 import Comments from './components/Comments'
 import Teacher from './components/Teacher'
 import NotFound from './components/NotFound'
+import Courses from './components/Courses'
 
 class App extends Component {
 
@@ -43,6 +44,7 @@ class App extends Component {
                         <PrivateRoute path='/admin/teachers' component={Teachers}/>
                         <PrivateRoute path='/admin/teacher/:id' component={Teacher}/>
                         <PrivateRoute path='/admin/sending_letters' component={SendingLetters}/>
+                        <PrivateRoute path='/admin/courses' component={Courses}/>
                         <Route path='/admin/login' component={Login}/>
                         <Route path='/feedback/:id' component={Comments}/>
                         <Route component={NotFound}/>
