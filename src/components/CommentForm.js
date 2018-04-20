@@ -44,7 +44,7 @@ class CommentForm extends Component {
             name='pass'
             placeholder='Please be free to leave the truth comment'
             rows='6'
-            maxlength='500'
+            maxLength='500'
             onChange={this.handleTextareaChange}
 
           />
