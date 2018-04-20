@@ -88,7 +88,6 @@ class Comments extends Component {
           "date": (new Date()).toString()
         })
       )
-      console.log(comments)
       API.post('setcomment/', {
         "comments": comments,
         "user": this.props.match.params.id

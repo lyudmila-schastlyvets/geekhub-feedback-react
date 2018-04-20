@@ -40,20 +40,19 @@ class Courses extends Component {
         if (window.confirm('Do you want delete ' + event.name + '?')) {
             API.delete(`course/${event._id}`)
                 .then(res => {
-                    console.log(res)
-                })
-                .catch(function (error) {
-                        console.log('error ' + error)
-                    }
-                )
-            // update teacher state after delete
-            API.get('course/')
-                .then(function (response) {
-                    this.setState({
+                  // update course state after delete
+                  API.get('course/')
+                    .then(function (response) {
+                      this.setState({
                         courses: response.data
-                    })
-                }.bind(this))
+                      })
+                    }.bind(this))
 
+                    .catch(function (error) {
+                        console.log('error ' + error)
+                      }
+                    )
+                })
                 .catch(function (error) {
                         console.log('error ' + error)
                     }
