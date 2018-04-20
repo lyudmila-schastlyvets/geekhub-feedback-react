@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import update from 'immutability-helper'
 import API from '../api'
-import {COURSES} from './../constants'
 
 class FormTeacher extends Component {
     constructor(props) {
@@ -14,6 +13,7 @@ class FormTeacher extends Component {
                 image: '',
                 _id: ''
             },
+            courses: [],
             file: null,
             errors: {
                 name: '',
@@ -96,7 +96,6 @@ class FormTeacher extends Component {
                         .catch(function (error) {
                             console.log(error)
                         })
-
                 } else {
                     // add without image
                     API.post('teacher', {
@@ -196,6 +195,16 @@ class FormTeacher extends Component {
                 edit: true
             })
         }
+        API.get('course/')
+            .then(function (response) {
+                this.setState({
+                    courses: response.data
+                })
+            }.bind(this))
+            .catch(function (error) {
+                    console.log('error ' + error)
+                }
+            )
     }
 
     render() {
@@ -221,8 +230,8 @@ class FormTeacher extends Component {
                         className='custom-select'
                     >
                         <option className='hide'>Choose the course</option>
-                        {COURSES.map(function (course, key) {
-                            return (<option key={key} value={course}>{course}</option>)
+                        {this.state.courses.map(function (course, key) {
+                            return (<option key={key} value={course.name}>{course.name}</option>)
                         })}
                     </select>
                     <div className='error-notification'>
