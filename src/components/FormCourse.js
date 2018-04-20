@@ -123,7 +123,7 @@ class FormTeacher extends Component {
                         value='Save'
                         onClick={this.handleSubmit}
                     />
-                    <div className='form-teacher-success'>
+                    <div className='form-success'>
                         {this.state.success ?
                             (this.state.edit ?
                                 'Course edited!' :

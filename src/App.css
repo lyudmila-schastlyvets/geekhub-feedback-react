@@ -101,7 +101,8 @@ nav .active {
 }
 
 .login-form > *,
-.teacher-form > * {
+.teacher-form > *,
+.course-form > *{
   margin-bottom: 15px;
 }
 
@@ -116,7 +117,7 @@ nav .active {
   justify-content: space-between;
 }
 
-.form-teacher-success {
+.form-success {
   color: green;
 }
 
