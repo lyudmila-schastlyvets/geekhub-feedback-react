@@ -83,7 +83,7 @@ class Teacher extends Component {
                                   disabled
                                   className='feedback'
                                   rows='5'
-                                  defaultValue={row.original.content}
+                                  value={row.original.content}
                                 ></textarea>)
                               },
                               {
