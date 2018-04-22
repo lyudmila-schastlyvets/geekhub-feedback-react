@@ -5,6 +5,7 @@ import update from 'immutability-helper'
 import AdditionalFeedback from './AdditionalFeedback'
 import CommentForm from './CommentForm'
 import PageUpload from './PageUpload'
+import NotFound from './NotFound'
 
 class Comments extends Component {
   constructor(props) {
@@ -34,8 +35,11 @@ class Comments extends Component {
         })
       }.bind(this))
       .catch(function (err) {
+        this.setState({
+          wasSent: 'error'
+        })
         console.log(err)
-      })
+      }.bind(this))
     API.get('teacher')
       .then(function (res) {
         this.setState({
@@ -157,6 +161,8 @@ class Comments extends Component {
               <h2>Ви успішно відправили відгук!</h2>
               <p>Ваша думка для нас дуже важлива.</p>
             </div>
+            case 'error':
+              return <NotFound/>
             default:
               return <PageUpload/>
           }
