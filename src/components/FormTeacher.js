@@ -93,6 +93,7 @@ class FormTeacher extends Component {
             this.state.errors.course = ''
         }
         const teacher = this.state.teacher
+      console.log(teacher)
         // check errors exist
         if (this.state.errors.name ||
             this.state.errors.course ||
@@ -173,7 +174,8 @@ class FormTeacher extends Component {
                                     {
                                         name: teacher.name,
                                         course: teacher.course,
-                                        image: response.data.url
+                                        image: response.data.url,
+                                        _id: teacher._id
                                     })
                                     .then(res => {
                                         this.setState({
@@ -190,14 +192,15 @@ class FormTeacher extends Component {
                         {
                             name: teacher.name,
                             course: teacher.course,
-                            image: teacher.image
+                            image: teacher.image,
                         })
                         .then(res => {
                             this.setState({
                                 teacher: {
                                     name: teacher.name,
                                     course: teacher.course,
-                                    image: teacher.image
+                                    image: teacher.image,
+                                    _id: teacher._id
                                 },
                                 success: true
                             })
