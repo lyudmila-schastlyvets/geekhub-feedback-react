@@ -154,6 +154,7 @@ class FormTeacher extends Component {
                     },
                     file: null
                 })
+                this.refs.fileInput.value = ''
             } else {
                 const formData = new FormData()
                 formData.append('sampleFile', this.state.file)
@@ -242,6 +243,7 @@ class FormTeacher extends Component {
                             type='file'
                             value={this.state.image}
                             onChange={this.onFileChange}
+                            ref='fileInput'
                         />
                     </div>
                     <input
