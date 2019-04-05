@@ -1,18 +1,263 @@
+.body,
+.rt-table{
+  min-width: 320px !important;
+}
+
 .App {
   text-align: center;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+  height: 180px;
+  background: url("./images/header.jpg");
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+.header-bg {
+  height: 180px;
+  background-color: #0056b3;
+  opacity: 0.75;
+  padding: 40px 0;
+  text-align: left;
 }
+
+.logo {
+  width: 100px;
+  padding-bottom: 10px;
+}
+
+.App-title {
+  width: calc(100% - 200px);
+  font-size: 2.5em;
+  line-height: 1em;
+  font-weight: bold;
+  text-align: center;
+  padding: 0;
+}
+
+h1 {
+  padding: 10px 0;
+}
+
 
 .App-intro {
   font-size: large;
+}
+
+.single-form-row {
+  padding-bottom: 20px;
+}
+
+.mg-bottom {
+  margin-bottom: 20px;
+}
+
+.error-notification {
+  color: tomato;
+}
+
+nav {
+  padding: 15px 0;
+  font-size: 18px;
+}
+
+nav .active {
+  color: #0056b3;
+}
+
+.info {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.image {
+  width: 50%;
+  margin-right: 20px;
+  height: 150px;
+}
+
+.image img {
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info-data {
+  width: 50%;
+  text-align: left;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 15px;
+}
+
+.login-form > *,
+.teacher-form > * {
+  margin-bottom: 15px;
+}
+
+.login-form input[type="submit"] {
+  width: 120px;
+  align-self: center;
+}
+
+.single-comment-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-teacher-success {
+  color: green;
+}
+
+.narcissus_17w311v {
+  padding: 30px 50px !important;
+  left: 35% !important;
+  top: 20% !important;
+}
+
+a.color-btn {
+  color: white !important;
+}
+
+.visible {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.teacher-link {
+  color: #007bff !important;
+  cursor: pointer;
+}
+
+.teacher-link:hover {
+  text-decoration: underline !important;
+}
+
+.teacher-info img {
+  max-width: 300px;
+}
+
+.centered-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+  justify-content: center;
+}
+
+.page-404 h1 {
+  font-size: 5em;
+}
+
+.page-404 h3 {
+  color: #007bff;
+}
+
+.routes {
+  min-height: calc(100vh - 244px);
+  padding-bottom: 10px;
+}
+
+.footer {
+  height: 64px;
+  padding: 20px;
+  color: white;
+  background: #1c1b1c;
+}
+
+textarea.form-control {
+  resize: none;
+}
+
+textarea.feedback {
+  width: 100%;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 4px;
+  resize: none;
+  background-color: transparent;
+}
+
+
+.additional-teacher {
+  display: flex;
+}
+
+.header-responsive {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .narcissus_17w311v {
+    left: 30% !important;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .header-bg {
+    text-align: center;
+  }
+
+  .App-title {
+    font-size: 2em;
+  }
+
+  h1 {
+    font-size: 1.6em !important;
+  }
+
+  h2 {
+    font-size: 1.5em !important;
+  }
+
+  h3 {
+    font-size: 1em !important;
+  }
+
+  .narcissus_17w311v {
+    left: 18% !important;
+    width: 80% !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .narcissus_17w311v {
+    padding: 10px !important;
+    left: 15% !important;
+    width: 85% !important;
+  }
+
+  .rt-table {
+    flex: 100 0 auto;
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .header-responsive {
+    flex-direction: column;
+  }
+  .App-title {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .image {
+    height: 200px;
+  }
 }

@@ -1,0 +1,73 @@
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
+import API from '../api'
+import ReactTable from 'react-table'
+import 'react-table/react-table.css'
+
+class Feedback extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      comments: []
+    }
+
+  }
+  componentDidMount() {
+    API.get('commentslist/')
+      .then(function (response) {
+        this.setState({
+          comments: response.data
+        })
+      }.bind(this))
+      .catch(function (error) {
+          console.log('error ' + error)
+        }
+      )
+  }
+  render () {
+    const columns = [{
+        Header: 'Comment',
+        accessor: 'content',
+        Cell: row => (<textarea
+          disabled
+          className='feedback'
+          rows='5'
+          value={row.original.content}
+        ></textarea>)
+      }, {
+        Header: 'Date',
+        accessor: 'date',
+        Cell: row => (
+          <span>{new Date(row.original.date).toLocaleString()}</span>
+        )
+      }, {
+        Header: 'For teacher',
+        accessor: 'teacherName',
+        Cell: row => (
+          <a
+            className='teacher-link'
+            onClick={() => this.props.history.push(
+              `/admin/teacher/${row.original.forTeacher}`
+            )}>{row.value}</a>)
+      }
+    ]
+    const items = this.state.comments.length
+    return (
+      <div>
+        <h1>Feedback</h1>
+        <div id='comments'>
+          <ReactTable
+            data={this.state.comments}
+            columns={columns}
+            pageSize={(items < 10) ? items : 10}
+            className='-striped -highlight'
+            showPageSizeOptions={false}
+            noDataText='No comments were found.'
+          />
+        </div>
+      </div>
+    )
+  }
+}
+
+export default withRouter(Feedback)
